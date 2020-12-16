@@ -27,11 +27,8 @@ namespace Rsp_NoDB
                     Console.WriteLine("Input is out of range, Please enter between 1 -3");
                     continue;
                 }
-                result = false;
-                
 
-            }while(result);
-
+              
             Console.WriteLine("Congratulation you enter : " + userInputInt);
             Random randomNumber = new Random(10);
             int computerChoice = randomNumber.Next(1,4);
@@ -53,6 +50,17 @@ namespace Rsp_NoDB
 
             }
 
+              Console.WriteLine("Do you want to play again y/n");
+              string ch = Console.ReadLine();
+              char c = char.Parse(ch);
+                if(c == 'y' || c =='Y'){
+                    result = true;
+                }else{
+                    result = false;
+                }
+                
+
+            }while(result);
         }
     }
 }
