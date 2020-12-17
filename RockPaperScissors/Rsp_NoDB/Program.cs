@@ -4,10 +4,24 @@ namespace Rsp_NoDB
 {
     class Program
     {
+        /*
+          public enum Choices{
+        Rock, 
+        Scissors,
+        Paper
+    }
+    */
         static void Main(string[] args)
         {
+    
             //Console.WriteLine("Hello World!");
-
+            
+           // Player player = new  Player();
+           // player.NumberOfGame = 1;
+            Game game = new Game();
+            // test enum
+            Choices choice = Choices.Paper;
+            Console.WriteLine("my choice is " + choice);
 
             bool result = true;
             bool parsResult = false;
@@ -64,14 +78,21 @@ namespace Rsp_NoDB
 
               Console.WriteLine("Do you want to play again y/n");
               string ch = Console.ReadLine();
-              char c = char.Parse(ch);
-                if(c == 'y' || c =='Y'){
+              char c; 
+              bool anserInput = false;
+              do{
+                    bool charResult = char.TryParse(ch,out c);
+               if(charResult){
+                     if(c == 'y' || c =='Y'){
                     result = true;
                 }else{
                     result = false;
                 }
-                
 
+               }
+                  
+              }while(anserInput);
+             
             }while(result);
         }
     }
