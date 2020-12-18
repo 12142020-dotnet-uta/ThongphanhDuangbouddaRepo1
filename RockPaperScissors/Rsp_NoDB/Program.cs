@@ -16,7 +16,7 @@ namespace Rsp_NoDB
             string[] userNameArray;
             string userName = Console.ReadLine();
             userNameArray = userName.Split(' ');
-            Console.WriteLine(userNameArray.Length);
+            Console.WriteLine(userNameArray.Length + "userAraayLent");
             //Console.WriteLine("Hello World!");
             
            // Player player = new  Player();

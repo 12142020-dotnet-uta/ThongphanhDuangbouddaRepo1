@@ -3,15 +3,16 @@ using System.Collections.Generic;
 
 namespace RpsGame_NoDb
 {
+
     class Program
     {
+    
         static void Main(string[] args)
         {
             List<Player> players = new List<Player>();
             List<Match> matches = new List<Match>();
             List<Round> rounds = new List<Round>();
-
-            // create the Computer that everyone plays against.
+            Player p2 = new Player();
             Player p1 = new Player()
             {
                 Fname = "Max",
@@ -20,7 +21,46 @@ namespace RpsGame_NoDb
 
             players.Add(p1);
 
-            Console.WriteLine("This is The Official Batch Rock-Paper-Scissors Game");
+            UI ui  = new UI();
+            bool continueGame = true;
+            do{
+
+                Console.WriteLine("Welcome to Rock, Scissors and Rodk Game 1.0 -- Created By: ....");
+
+                int Login = ui.LogInOptions();
+                //login == 1: login as new user
+                if(Login == 1){
+                    p2.Fname = ui.getFirstName();
+                    p2.Lname = ui.getLastName();
+                }else{
+                    p2.Fname = ui.getFirstName();
+                    p2.Lname = ui.getFirstName();
+                    // search for match Frist name and Last name 
+                    // if not match; assign as new player
+                    // p2 = getPlayer();
+                    /*
+                    if(){
+
+                    }
+
+                    */
+                }
+
+                
+
+            
+
+            }while(!continueGame);
+
+    
+          
+            
+
+
+            // create the Computer that everyone plays against.
+
+
+            //Console.WriteLine("This is The Official Batch Rock-Paper-Scissors Game");
             // Console.WriteLine(userResponse);
             // try
             // {
