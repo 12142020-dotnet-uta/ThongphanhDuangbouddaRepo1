@@ -80,7 +80,7 @@ namespace RpsGame_NoDb
                 userNamesArray = userNames.Split(' ');
             } while (userNamesArray[0] == "");
 
-            Player p2 = new Player();
+           // Player p2 = new Player();
 
             //is the user unputted jsut one name
             if (userNamesArray.Length == 1)
