@@ -1,8 +1,8 @@
-namespace AppStore
+namespace AppStore.Models
 {
     public class Customer
     {
-        public int CustumerID {get; set;}
+        public int CustumerId {get; set;}
         public string FirstName {get; set;}
         public string LastName {get; set;}
         // List<OrderHistory> OrderHistories = new List<OrderHistory();

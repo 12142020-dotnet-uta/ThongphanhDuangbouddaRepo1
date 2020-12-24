@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using AppStore.Models;
 
-namespace AppStore
+namespace AppStore.DAL
  {
     public class AppStoreContext: DbContext
     {

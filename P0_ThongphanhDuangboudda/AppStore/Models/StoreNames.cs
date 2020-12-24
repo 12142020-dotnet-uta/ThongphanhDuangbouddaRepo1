@@ -1,4 +1,4 @@
-namespace AppStore
+namespace AppStore.Models
 {
     //use enum
     public class StoreNames
@@ -6,7 +6,7 @@ namespace AppStore
         public enum StoreName{
             Sacramento,
             Stockton,
-            Taho,
+            Tahoe,
             Redwood,
             Napa
         }

@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-namespace AppStore
+namespace AppStore.Models
 {
-    public class OrderHistory 
+    public class OrderHistory
     {
         //TODO
         [Key]

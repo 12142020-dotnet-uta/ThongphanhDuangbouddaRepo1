@@ -1,5 +1,7 @@
 ﻿using System;
 using AppStore.DAL;
+using AppStore.Models;
+
 
 
 namespace AppStore
@@ -68,24 +70,19 @@ namespace AppStore
             // Amin loggin
             if(enter[0] == 'A' || enter[0] == 'a'){
             //Add store
-                AddStore addStore = new AddStore();
-                Store newStore = addStore.AddNewStore();  
-                repo.AddStore(newStore);
+                Console.WriteLine("Press y or Y to add store:  press any key to add products: x or X to exit or space");
+                enter = Console.ReadLine();
+                if(enter[0] == 'X' || enter[0] == 'x' || enter.Length == 0){
+                     Environment.Exit(0);
+                }else if(enter[0] == 'Y' || enter[0] == 'y'){
+                    AddStore addStore = new AddStore();
+                    Store newStore = addStore.AddNewStore();  
+                    Console.WriteLine("Added Store");
+                   // repo.AddStore(newStore);
+                     Environment.Exit(0);
+                }
+
             }
-
-
-            /*
-            Console.WriteLine("enum iD " + (int)StoreNames.StoreName.Sacramento );
-            string storeq = (StoreNames.StoreName.Sacramento.ToString("g"));
-            //store.StoreId = (int)StoreNames.StoreName.Redwood;
-            store.StoreName = StoreNames.StoreName.Redwood.ToString("g");
-            store.City =   StoreNames.StoreName.Redwood.ToString("g");
-            store.State = "Ca";
-            store.Address = "5588 10th RedWood";
-        
-            repo.AddStore(store);
-            */
-            //add product to inventory; add all or add to single store.
 
             firstName  = getFirstName();
             lastName = getFirstName();
