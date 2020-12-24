@@ -1,30 +1,18 @@
 ﻿using System;
+using AppStore.DAL;
+
 
 namespace AppStore
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            Menu nenu = new Menu();
-            string firstName = "";
-            string lastName = "";
-            string enter = "";
-            bool conntinueToShop = false;
-
-            Console.WriteLine("\n\n========= Welcome To  Rose Clothing Stroes ======== \n");
-            Console.WriteLine("Please enter any key to enter; X to  Exit");
-            enter = Console.ReadLine().Trim();
-            if(enter.Length == 0) enter = "yes";
-           // Console.WriteLine("lent of enter  " + enter.Length);
-            if(enter[0] == 'X' || enter[0] == 'x' || enter.Length == 0){
-                Environment.Exit(0);
-            }
-
-            do{
-                bool correctFirstName = false;
+       
+      
+        public static string getFirstName(){
+            string firstName = "default";
+            bool correctFirstName = false;
                 //get first name 
-                Console.WriteLine("Please enter first name: ");
+            Console.WriteLine("Please enter first name: ");
                 do{
                    
                     firstName = Console.ReadLine().Trim();
@@ -34,6 +22,10 @@ namespace AppStore
                         correctFirstName = true;
                     }
                 }while(!correctFirstName);
+            return  firstName;
+        }
+        public static string getLastName(){
+            string lastName = "";
                 //get last name 
                 Console.WriteLine("Please enter last name: ");
                 bool incorrectLastName = true;
@@ -44,16 +36,70 @@ namespace AppStore
                     }else{
                         incorrectLastName = false;
                     }
-
                 }while(incorrectLastName);
+            return lastName;
+        }
+
+
+
+
+        //enter program
+        static void Main(string[] args)
+        {
+            Test tes = new Test();
+            tes.isTest();
+            Menu nenu = new Menu();
+            string firstName = "";
+            string lastName = "";
+            string enter = "";
+            bool logIn = true;
+            bool conntinueToShop = false;
+            Store store = new Store();
+            RepositoryLayer repo = new RepositoryLayer();
+
+            Console.WriteLine("\n\n========= Welcome To Troll Stores ======== \n");
+            Console.WriteLine("Please press any key to enter; X to  Exit  OR  a or A for Admin");
+            enter = Console.ReadLine().Trim();
+            if(enter.Length == 0) enter = "yes";
+           // Console.WriteLine("lent of enter  " + enter.Length);
+            if(enter[0] == 'X' || enter[0] == 'x' || enter.Length == 0){
+                Environment.Exit(0);
+            }
+            // Amin loggin
+            if(enter[0] == 'A' || enter[0] == 'a'){
+            //Add store
+                AddStore addStore = new AddStore();
+                Store newStore = addStore.AddNewStore();  
+                repo.AddStore(newStore);
+            }
+
+
+            /*
+            Console.WriteLine("enum iD " + (int)StoreNames.StoreName.Sacramento );
+            string storeq = (StoreNames.StoreName.Sacramento.ToString("g"));
+            //store.StoreId = (int)StoreNames.StoreName.Redwood;
+            store.StoreName = StoreNames.StoreName.Redwood.ToString("g");
+            store.City =   StoreNames.StoreName.Redwood.ToString("g");
+            store.State = "Ca";
+            store.Address = "5588 10th RedWood";
+        
+            repo.AddStore(store);
+            */
+            //add product to inventory; add all or add to single store.
+
+            firstName  = getFirstName();
+            lastName = getFirstName();
+
+            //
+            do{
+                // Check if the user is an existing user; if not, assign as a new user; ===> RepositoryLayer();
+                //customers select a store
+                do{
+
+                    logIn = false;
+                }while(logIn);
 
             }while(conntinueToShop);
-
-            
-
-            
-
-
         }
     }
 
