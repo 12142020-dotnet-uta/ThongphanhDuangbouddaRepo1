@@ -18,13 +18,20 @@ namespace AppStore.DAL
             }
 
 
-        }  
+        } 
+        public void AddCustomer(Customer customer) {
+            using(var db = new AppStoreContext()){
+                db.Add(customer);
+                db.SaveChanges();
+            }
+        }
+        /*
         public List<Store>  GetStores(){
             lis<Store> stores; 
             using(var db = new AppStoreContext()){
-                stores = db
+                //Todo
             }
         }
-        
+        */
     }
 }
