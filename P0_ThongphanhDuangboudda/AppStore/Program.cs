@@ -2,59 +2,20 @@
 using AppStore.DAL;
 using AppStore.Models;
 
-
-
 namespace AppStore
 {
     class Program
     {
-       
-      
-        public static string getFirstName(){
-            string firstName = "default";
-            bool correctFirstName = false;
-                //get first name 
-            Console.WriteLine("Please enter first name: ");
-                do{
-                   
-                    firstName = Console.ReadLine().Trim();
-                    if(firstName.Length == 0 ){
-                        Console.WriteLine("Please re-enter your first name: ");
-                    }else{
-                        correctFirstName = true;
-                    }
-                }while(!correctFirstName);
-            return  firstName;
-        }
-        public static string getLastName(){
-            string lastName = "";
-                //get last name 
-                Console.WriteLine("Please enter last name: ");
-                bool incorrectLastName = true;
-                do{
-                    lastName = Console.ReadLine().Trim();
-                    if(lastName.Length == 0){
-                        Console.WriteLine("Please re-enter your last name: ");
-                    }else{
-                        incorrectLastName = false;
-                    }
-                }while(incorrectLastName);
-            return lastName;
-        }
-
-
-
-
-        //enter program
+         //enter program
         static void Main(string[] args)
         {
             Test tes = new Test();
             tes.isTest();
+            Login login = new Login();
             Menu nenu = new Menu();
             Customer customer = new Customer();
             CustomerDAL cusDAL = new CustomerDAL();
-            string firstName = "";
-            string lastName = "";
+
             string enter = "";
             bool logIn = true;
             bool conntinueToShop = false;
@@ -69,8 +30,6 @@ namespace AppStore
             if(enter[0] == 'X' || enter[0] == 'x' || enter.Length == 0){
                 Environment.Exit(0);
             }
-
-
             // Amin loggin
             if(enter[0] == 'A' || enter[0] == 'a'){
             //Add store
@@ -97,25 +56,30 @@ namespace AppStore
 
 
             }else{
-                //Customer loop
-                firstName  = getFirstName();
-                lastName = getFirstName();
-                customer.FirstName = firstName;
-                customer.LastName = lastName;
-                cusDAL.IsExist(customer);
-                //repo.AddCustomer(customer);
+                customer = login.CustomerLogin(customer);
             }
 
             
-
-            //
             do{
-                // Check if the user is an existing user; if not, assign as a new user; ===> RepositoryLayer();
-                //customers select a store
+                Customer returnCustomer = cusDAL.IsExist(customer);
+                if(returnCustomer != null){
+                    customer = returnCustomer;
+                    Console.WriteLine("Welcome back : " + customer.FirstName);
+                }else{
+                    repo.AddCustomer(customer);
+                    Console.WriteLine("Welcome new customer: " + customer.CustomerId + " Name:  " + customer.FirstName);
+                }
+              
                 do{
+                    //curent login customer 
+                    Console.WriteLine("You entered Troll stores");
 
                     logIn = false;
                 }while(logIn);
+                //is new customer 
+                // yes call login 
+                // checking 
+                //x to  quiz
 
             }while(conntinueToShop);
         }
