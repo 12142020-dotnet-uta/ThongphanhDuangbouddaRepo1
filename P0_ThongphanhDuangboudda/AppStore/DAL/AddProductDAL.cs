@@ -7,26 +7,21 @@ namespace AppStore.DAL
         //getStoreID //read store
             using(var db = new AppStoreContext()){
                 var stores = db.Stores;
-                /*
-                foreach(var store in stores){
-                    Console.WriteLine("StoreId: at add " + store.StoreId);
-                    product.StoreId = store.StoreId;
-                    db.Add(new Product{
-                        ProductName = product.ProductName,
-                        ProductDescription = product.ProductDescription,
-                        Category = product.Category,
-                        Price = product.Price,
-                        StoreId = store.StoreId
-
-                    });
+                 //product.StoreId = 1;
+                 Console.WriteLine("prodcutName: " + product.ProductName);
+                 foreach(var store in stores){
+                     Product p = new Product();
+                     p.ProductName = product.ProductName;
+                     p.ProductDescription = product.ProductDescription;
+                     p.Category = product.Category;
+                     p.Price = product.Price;
+                     p.Quantity = product.Quantity;
+                     p.StoreId = store.StoreId;
+                     db.Add(p);
                     
-                 
                 }
-                */
-                   product.ProductID = 1;
-                    db.Add(product);
-                    db.SaveChanges();
-
+                db.SaveChanges();
+    
             }
 
         }
