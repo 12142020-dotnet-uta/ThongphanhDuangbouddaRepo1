@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace AppStore.DAL
 {
     public class AddProductDAL
@@ -24,6 +27,17 @@ namespace AppStore.DAL
     
             }
 
+        }
+
+        public List<Product> getListOfProducts(int storeID){
+            List<Product> ps = new List<Product>();
+            using(var db = new AppStoreContext()){
+                var product = db.Products
+                    .Where(x => x.StoreId == storeID).ToList();
+                   ps = product; 
+            }
+
+            return ps;
         }
     }
 }

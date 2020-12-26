@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AppStore.DAL;
 using AppStore.Models;
 
@@ -12,10 +13,12 @@ namespace AppStore
     
             Login login = new Login();
             Menu menu = new Menu();
+            AddProductDAL productDAL = new AddProductDAL();
             Customer customer = new Customer();
             CustomerDAL cusDAL = new CustomerDAL();
             AddStore addStore = new AddStore();
             AddProduct product = new AddProduct();
+            List<Product> listProducts = new List<Product>();
 
             string enter = "";
             bool logIn = true;
@@ -86,11 +89,36 @@ namespace AppStore
                     }while(inCorrectStoreNumber);
                    
                     //viewProduct();
+                    //getList of products
+                    listProducts = productDAL.getListOfProducts(storeNumer);
+                    foreach(var p in listProducts){
+                        Console.WriteLine("got product list " + p.Price);
+                    }
                     Console.WriteLine("Produc tNumber \tName \t\tPDescription \tCategory \tPrice \t\tQuantity \t\tStoreID \n");
                     Console.WriteLine(product.viewProduct(storeNumer));
 
                     //selectProduct item;
-                    //selectQuantity();
+                    int itemNumber = 0;
+                    bool incorrectItemNumber = true;
+                    do{
+                        Console.Write("Enter the product number you want to purchase : ");
+                        enter = Console.ReadLine().Trim();
+                        incorrectItemNumber = Int32.TryParse(enter, out itemNumber);
+                        if(incorrectItemNumber){
+                            //check if match
+                            foreach(var p in listProducts){
+                                if(p.ProductID == itemNumber){
+                                    Console.WriteLine("You selected item# " +p.ProductID);
+                                    
+                                }
+                            }
+
+                        }
+                        //Continue to add?
+
+
+                    }while(incorrectItemNumber);
+                   
                     //Options checkout()// or logout
 
 

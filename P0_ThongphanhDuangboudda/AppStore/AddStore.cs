@@ -12,7 +12,7 @@ namespace AppStore
                 .FirstOrDefault();
     */
         public bool SearchForStore( int storeNumer){
-            bool found = true;
+           
             using(var db = new AppStoreContext()){
                 var store = db.Stores
                     .Where(x => x.StoreId == storeNumer)
@@ -23,7 +23,6 @@ namespace AppStore
 
             }
             
-
             return false;
         }
         public Store AddNewStore(){
