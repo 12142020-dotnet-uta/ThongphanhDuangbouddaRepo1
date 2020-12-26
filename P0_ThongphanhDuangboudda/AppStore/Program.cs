@@ -32,28 +32,7 @@ namespace AppStore
             }
             // Amin loggin
             if(enter[0] == 'A' || enter[0] == 'a'){
-            //Add store
-                bool admin = true;
-                do{
-                    Console.WriteLine("Press y or Y to add store:  press any key to add products: x or X to exit or space");
-                    enter = Console.ReadLine();
-                    if(enter[0] == 'X' || enter[0] == 'x' || enter.Length == 0){
-                     Environment.Exit(0);
-                    }else if(enter[0] == 'Y' || enter[0] == 'y'){
-                        AddStore addStore = new AddStore();
-                        Store newStore = addStore.AddNewStore();  
-                        Console.WriteLine("Added Store");
-                        // repo.AddStore(newStore);
-                       // Environment.Exit(0);
-                    }else{
-                        //add product 
-                        //getStoreID //read store
-
-
-                    }
-
-                }while(admin);
-
+                login.AdminLogin();
 
             }else{
                 customer = login.CustomerLogin(customer);
