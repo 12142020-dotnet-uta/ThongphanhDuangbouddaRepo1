@@ -44,6 +44,7 @@ namespace AppStore
                         // repo.AddStore(newStore);
                        // Environment.Exit(0);
                     }else{
+                        newP.AddNewProduct();
                       
                         
                         
