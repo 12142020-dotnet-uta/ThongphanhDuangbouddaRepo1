@@ -1,4 +1,5 @@
 using System;
+using AppStore.DAL;
 namespace AppStore
 {
     public class Menu
@@ -25,6 +26,11 @@ namespace AppStore
         public void GetLogInMenue(){
             Console.WriteLine("Presse 1. \t ");
 
+        }
+        public string viewStore(){
+            string str = "s";
+
+            return str;
         }
         
     }

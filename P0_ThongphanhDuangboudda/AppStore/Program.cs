@@ -9,8 +9,7 @@ namespace AppStore
          //enter program
         static void Main(string[] args)
         {
-            Test tes = new Test();
-            tes.isTest();
+    
             Login login = new Login();
             Menu nenu = new Menu();
             Customer customer = new Customer();
@@ -44,21 +43,43 @@ namespace AppStore
                 if(returnCustomer != null){
                     customer = returnCustomer;
                     Console.WriteLine("Welcome back : " + customer.FirstName);
+                    Console.WriteLine(cusDAL.geProductSuggestion(customer));
+
                 }else{
                     repo.AddCustomer(customer);
                     Console.WriteLine("Welcome new customer: " + customer.CustomerId + " Name:  " + customer.FirstName);
+                    Console.WriteLine("No Suggested Products yet ...");
                 }
               
                 do{
-                    //curent login customer 
+                    //curent login as a customer 
                     Console.WriteLine("You entered Troll stores");
+                    Console.WriteLine("Here are available stores :");
+                    //viewStore();
+                    Console.WriteLine();
 
-                    logIn = false;
+                    using(var db = new AppStoreContext()){
+                        var stores = db.Stores;
+                        
+                    }
+                    
+                    //viewProduct();
+                    //selectProduct item;
+                    //selectQuantity();
+                    //Options checkout()// or logout
+
+
+                    Console.WriteLine("Continue to shop as " + customer.FirstName);
+                    Console.WriteLine("Press 'y' or 'Y' to continue: ");
+                    enter = Console.ReadLine().Trim();
                 }while(logIn);
-                //is new customer 
-                // yes call login 
-                // checking 
-                //x to  quiz
+                //if logout
+                //promp(leave program/ or new customer)  =>exi
+                
+                //do get a customer 
+                //customer = login.CustomerLogin(customer);
+                //back to do while.
+              
 
             }while(conntinueToShop);
         }

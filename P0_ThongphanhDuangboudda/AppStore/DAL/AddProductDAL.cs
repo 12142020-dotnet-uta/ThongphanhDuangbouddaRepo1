@@ -8,7 +8,7 @@ namespace AppStore.DAL
             using(var db = new AppStoreContext()){
                 var stores = db.Stores;
                  //product.StoreId = 1;
-                 Console.WriteLine("prodcutName: " + product.ProductName);
+                // Console.WriteLine("prodcutName: " + product.ProductName);
                  foreach(var store in stores){
                      Product p = new Product();
                      p.ProductName = product.ProductName;

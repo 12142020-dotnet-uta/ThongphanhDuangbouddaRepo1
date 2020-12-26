@@ -24,11 +24,13 @@ namespace AppStore
                 newP.getClassName();
                      
                 string[] categories = {"Electronic","Grocery","Clothing"};
+                /*
                 string productName = "0";
                 string productDes = "";
                 string productCategory = "";
                 decimal price = 0;
                 int quantity = 100;
+                */
 
                 string enter = "";
                 bool admin = true;

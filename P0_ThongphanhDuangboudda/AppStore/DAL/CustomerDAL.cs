@@ -17,8 +17,8 @@ namespace AppStore.DAL
 
                 db.SaveChanges();
 
-                 if(found != null){
-                     Console.WriteLine("Hellow  ===>:  " + found.FirstName + " ID " + found.CustomerId);
+                if(found != null){
+                    // Console.WriteLine("Hellow  ===>:  " + found.FirstName + " ID " + found.CustomerId);
                     cus = found;
                 }else{
                    // Console.WriteLine("cant find ===> Customer ");
@@ -26,6 +26,15 @@ namespace AppStore.DAL
                 }                     
             }
             return cus;
+        }
+
+        //Get product suggestion
+        public string geProductSuggestion(Customer customer){
+            string str ="";
+            str = "Your should buy these items";
+
+            return str;
+
         }
         
     }
