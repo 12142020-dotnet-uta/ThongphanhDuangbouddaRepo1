@@ -45,11 +45,6 @@ namespace AppStore
                        // Environment.Exit(0);
                     }else{
                         newP.AddNewProduct();
-                      
-                        
-                        
-
-                    
                         /*
                         //enter product
                         Console.WriteLine("Please enter product name: ");
