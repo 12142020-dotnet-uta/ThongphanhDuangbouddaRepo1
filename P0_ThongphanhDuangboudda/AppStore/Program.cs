@@ -11,9 +11,11 @@ namespace AppStore
         {
     
             Login login = new Login();
-            Menu nenu = new Menu();
+            Menu menu = new Menu();
             Customer customer = new Customer();
             CustomerDAL cusDAL = new CustomerDAL();
+            AddStore addStore = new AddStore();
+            AddProduct product = new AddProduct();
 
             string enter = "";
             bool logIn = true;
@@ -52,18 +54,41 @@ namespace AppStore
                 }
               
                 do{
+                    int storeNumer = 0;
+                    bool num = false;
                     //curent login as a customer 
                     Console.WriteLine("You entered Troll stores");
                     Console.WriteLine("Here are available stores :");
+                     Console.WriteLine("Store# \tStoreName \tStoreAddress");
                     //viewStore();
-                    Console.WriteLine();
+                    Console.WriteLine(menu.viewStore());
+                   
+                    bool inCorrectStoreNumber = true;
+                    bool foundStore = true;
+                     //get store
+                    do{
+                        Console.WriteLine("Enter Store#");
+                        enter = Console.ReadLine().Trim();
+                        num = Int32.TryParse(enter, out storeNumer);
+                        if(num){
+                            foundStore = addStore.SearchForStore(storeNumer);
+                            if(foundStore){
+                                Console.WriteLine("Store found");
+                                inCorrectStoreNumber = false;
+                            }else{
+                                Console.WriteLine("Store not found");
+                            }
+                            
+                        }else{
+                            inCorrectStoreNumber = true;
+                        }
 
-                    using(var db = new AppStoreContext()){
-                        var stores = db.Stores;
-                        
-                    }
-                    
+                    }while(inCorrectStoreNumber);
+                   
                     //viewProduct();
+                    Console.WriteLine("Produc tNumber \tName \t\tPDescription \tCategory \tPrice \t\tQuantity \t\tStoreID \n");
+                    Console.WriteLine(product.viewProduct(storeNumer));
+
                     //selectProduct item;
                     //selectQuantity();
                     //Options checkout()// or logout

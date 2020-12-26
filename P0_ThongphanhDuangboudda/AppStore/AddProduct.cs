@@ -1,6 +1,7 @@
 using System;
 using AppStore.DAL;
 using AppStore.Models;
+using System.Linq;
 
 namespace AppStore
 {
@@ -8,6 +9,19 @@ namespace AppStore
     {
         public void getClassName(){
             Console.WriteLine("it  is AddProduct");
+        }
+        public string viewProduct(int storeID){
+            string str ="";
+            using(var db = new AppStoreContext()){
+                var product = db.Products
+                    .Where(x => x.StoreId == storeID).ToList();
+                foreach(var item in product){
+                    str = str + item.ProductID + "\t\t" + item.ProductName + "\t\t" + item.ProductDescription + "\t\t" + item.Category + "\t\t" + item.Price + "\t\t" + item.Quantity + "\t\t" + item.StoreId + "\n";
+                }
+        
+            }
+
+            return str;
         }
         
         public void AddNewProduct(){

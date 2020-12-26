@@ -28,7 +28,13 @@ namespace AppStore
 
         }
         public string viewStore(){
-            string str = "s";
+            string str = "";
+            using(var db = new AppStoreContext()){
+                var stores = db.Stores;
+                foreach(var store in stores ){
+                    str =  str + store.StoreId +"\t" + store.StoreName + "\t" + store.Address + "\n";
+                }
+            }
 
             return str;
         }

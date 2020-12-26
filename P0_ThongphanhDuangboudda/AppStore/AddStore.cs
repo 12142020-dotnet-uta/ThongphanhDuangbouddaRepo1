@@ -1,10 +1,31 @@
 using System;
 using AppStore.Models;
+using AppStore.DAL;
+using System.Linq;
 
 namespace AppStore
 {
     public class AddStore
-    {
+    {/*
+           var found = db.Customers    
+                .Where(x => x.FirstName == customer.FirstName && x.LastName == customer.LastName)
+                .FirstOrDefault();
+    */
+        public bool SearchForStore( int storeNumer){
+            bool found = true;
+            using(var db = new AppStoreContext()){
+                var store = db.Stores
+                    .Where(x => x.StoreId == storeNumer)
+                    .FirstOrDefault();
+                if(store != null){
+                    return true;
+                }
+
+            }
+            
+
+            return false;
+        }
         public Store AddNewStore(){
             Store newStore = new Store();
             bool enterCorrectly = false;
@@ -38,18 +59,6 @@ namespace AppStore
 
             newStore.City = "Sacramento";
             newStore.State = "CA";
-            /*
-            enterCorrectly = false;
-            do{
-
-            }while(!enterCorrectly)
-            enterCorrectly = false;
-            do{
-
-            }while(!enterCorrectly)
-            */
-
-
             return newStore;
         }
     }
