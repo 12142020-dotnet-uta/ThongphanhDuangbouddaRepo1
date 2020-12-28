@@ -36,6 +36,17 @@ namespace AppStore.DAL
             return str;
 
         }
-        
-    }
+        //customer checkout //added to history
+        public void Checkout(List<Product> checkoutList){
+            using(var db = new AppStoreContext()){
+                foreach(var product in checkoutList){
+                    var dbProuct = db.Products
+                        .Where(x =>x.ProductID == product.ProductID)
+                        .FirstOrDefault();
+                        dbProuct.Quantity = dbProuct.Quantity - product.Quantity;
+                }
+                db.SaveChanges();
+            }   
+        }
+    }   
 }

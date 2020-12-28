@@ -107,6 +107,49 @@ namespace AppStore
 
 
         }
+
+        public Product SearchForProducts(int id){
+            
+            using(var db = new AppStoreContext()){
+                var product = db.Products
+                .Where(p =>p.ProductID == id)
+                .FirstOrDefault();
+                if(product != null){
+                    return product;
+                }
+            }
+
+            return null;
+        }
+        public int GetItemNumber(){
+            bool correctItemNumber = true;
+            string enter = "";
+            int itemNumber = 0;
+            do{
+                Console.Write("Enter the product number you want to purchase : ");
+                enter = Console.ReadLine().Trim();
+                correctItemNumber = Int32.TryParse(enter, out itemNumber);
+
+            }while(!correctItemNumber);
+           
+           return itemNumber;
+
+        }
+
+        public int getQuantity(){
+            bool correctItemNumber = true;
+            string enter = "";
+            int itemNumber = 0;
+            do{
+                Console.Write("Enter Quantity you want to purchase : ");
+                enter = Console.ReadLine().Trim();
+                correctItemNumber = Int32.TryParse(enter, out itemNumber);
+
+            }while(!correctItemNumber);
+           
+           return itemNumber;
+
+        }
         
     }
 }

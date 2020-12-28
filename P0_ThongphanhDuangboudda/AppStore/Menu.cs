@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using AppStore.DAL;
 namespace AppStore
 {
@@ -38,6 +39,24 @@ namespace AppStore
 
             return str;
         }
+        public string ViewCart(List<Product> carts){
+            string str ="";
+            foreach(var product in carts){
+                str = str + product.ProductName + "\t" + product.Quantity + "\t" + product.Quantity * product.Price + "\n";
+            }
+            
+            return str;
+        }
+        public string viewGeneralOrderHistory(int customerID){
+            string str = "";
+            return str;
+        }
+        public  string ViewSpicificStoreOrderHistory(){
+            string str = "";
+            return str;
+        }
+        
+        
         
     }
 }

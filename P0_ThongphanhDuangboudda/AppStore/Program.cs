@@ -7,6 +7,7 @@ namespace AppStore
 {
     class Program
     {
+
          //enter program
         static void Main(string[] args)
         {
@@ -19,6 +20,7 @@ namespace AppStore
             AddStore addStore = new AddStore();
             AddProduct product = new AddProduct();
             List<Product> listProducts = new List<Product>();
+            List<Product> cart = new List<Product>();
 
             string enter = "";
             bool logIn = true;
@@ -55,76 +57,102 @@ namespace AppStore
                     Console.WriteLine("Welcome new customer: " + customer.CustomerId + " Name:  " + customer.FirstName);
                     Console.WriteLine("No Suggested Products yet ...");
                 }
-              
+                int storeNumber = 0;
                 do{
-                    int storeNumer = 0;
-                    bool num = false;
+                   
+                   // bool num = false;
                     //curent login as a customer 
                     Console.WriteLine("You entered Troll stores");
                     Console.WriteLine("Here are available stores :");
                      Console.WriteLine("Store# \tStoreName \tStoreAddress");
                     //viewStore();
                     Console.WriteLine(menu.viewStore());
-                   
-                    bool inCorrectStoreNumber = true;
-                    bool foundStore = true;
-                     //get store
+                    //getStore()
+                    bool found_A_Store = true;
                     do{
-                        Console.WriteLine("Enter Store#");
-                        enter = Console.ReadLine().Trim();
-                        num = Int32.TryParse(enter, out storeNumer);
-                        if(num){
-                            foundStore = addStore.SearchForStore(storeNumer);
-                            if(foundStore){
-                                Console.WriteLine("Store found");
-                                inCorrectStoreNumber = false;
-                            }else{
-                                Console.WriteLine("Store not found");
-                            }
-                            
-                        }else{
-                            inCorrectStoreNumber = true;
-                        }
+                        storeNumber = addStore.getNumber();
+                        found_A_Store = addStore.SearchForStore(storeNumber);
+                        if(!found_A_Store){Console.WriteLine("Invalid Store Number");}
+                    
+                    }while(!found_A_Store);
 
-                    }while(inCorrectStoreNumber);
                    
                     //viewProduct();
                     //getList of products
-                    listProducts = productDAL.getListOfProducts(storeNumer);
+                    listProducts = productDAL.getListOfProducts(storeNumber);
                     foreach(var p in listProducts){
                         Console.WriteLine("got product list " + p.Price);
                     }
                     Console.WriteLine("Produc tNumber \tName \t\tPDescription \tCategory \tPrice \t\tQuantity \t\tStoreID \n");
-                    Console.WriteLine(product.viewProduct(storeNumer));
+                    Console.WriteLine(product.viewProduct(storeNumber));
 
                     //selectProduct item;
                     int itemNumber = 0;
-                    bool incorrectItemNumber = true;
+                    bool correctItemNumber = true;
+                    Product foundProduct;
+                    // add product to cart
+                    bool available = false;
+                    int quantity = 0;
                     do{
-                        Console.Write("Enter the product number you want to purchase : ");
-                        enter = Console.ReadLine().Trim();
-                        incorrectItemNumber = Int32.TryParse(enter, out itemNumber);
-                        if(incorrectItemNumber){
+                        bool addToCart = false;
+                        correctItemNumber = false;
+                        itemNumber = product.GetItemNumber();
+                        //Console.WriteLine("Produc tNumber \tName \t\tPDescription \tCategory \tPrice \t\tQuantity \t\tStoreID \n");
+                        //Console.WriteLine(product.viewProduct(storeNumer));
+                        
+                        //Console.Write("Enter the product number you want to purchase : ");
+                        //enter = Console.ReadLine().Trim();
+                        //correctItemNumber = Int32.TryParse(enter, out itemNumber);
+                       
                             //check if match
-                            foreach(var p in listProducts){
-                                if(p.ProductID == itemNumber){
-                                    Console.WriteLine("You selected item# " +p.ProductID);
-                                    
+                        foundProduct =  product.SearchForProducts(itemNumber);
+                        if(foundProduct != null){
+                            Console.WriteLine("You selected item# " + itemNumber);
+                            //get valid quantity
+                            bool validQuantity = false;
+                            do{
+                                quantity = product.getQuantity();
+                                available= productDAL.CheckProductAvailabilty(storeNumber,quantity);
+                                if(available){
+                                    //add item to cart
+                                    Console.WriteLine("The item has been added to cart");
+                                    foundProduct.Quantity = quantity;
+                                    correctItemNumber = true;
+                                    cart.Add(foundProduct);
+                                    addToCart = true;
+                                    validQuantity = true;
+                                }else{
+                                    Console.WriteLine("Please enter amount less then available quantity");
                                 }
-                            }
 
+                            }while(!validQuantity);
+                                
+                        }else{
+                            Console.WriteLine("Product not found");
+                            
                         }
-                        //Continue to add?
+                        if(addToCart){
+ 
+                            Console.WriteLine("Continue to shop as " + customer.FirstName);
+                            Console.WriteLine("Press 'y' or 'Y' to continue; else to checkout ");
+                            enter = Console.ReadLine().Trim();
+                            if(enter.Length == 0){
+                                 correctItemNumber = true;
+                            } else if(enter[0] == 'Y' || enter[0] == 'y'){
+                                correctItemNumber = false;
+                            }
+                        }
+
+                    }while(!correctItemNumber);
+                    Console.WriteLine("at checkout");
+                    Console.WriteLine(menu.ViewCart(cart));
 
 
-                    }while(incorrectItemNumber);
-                   
+                    cusDAL.Checkout(cart);
                     //Options checkout()// or logout
 
 
-                    Console.WriteLine("Continue to shop as " + customer.FirstName);
-                    Console.WriteLine("Press 'y' or 'Y' to continue: ");
-                    enter = Console.ReadLine().Trim();
+                 
                 }while(logIn);
                 //if logout
                 //promp(leave program/ or new customer)  =>exi

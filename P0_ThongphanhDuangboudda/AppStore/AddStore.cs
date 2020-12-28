@@ -11,6 +11,26 @@ namespace AppStore
                 .Where(x => x.FirstName == customer.FirstName && x.LastName == customer.LastName)
                 .FirstOrDefault();
     */
+        public int getNumber(){
+            bool num = true;
+            int storeNumber = 0;
+            string enter = "";
+            bool inCorrectStoreNumber = true;
+             //get store
+             do{
+                inCorrectStoreNumber = true;
+                Console.WriteLine("Enter Store#");
+                enter = Console.ReadLine().Trim();
+                num = Int32.TryParse(enter, out storeNumber);
+                if(num){
+
+                    inCorrectStoreNumber = false;
+              
+                }
+            }while(inCorrectStoreNumber);
+            //Console.WriteLine("Return Number " + storeNumber);
+            return storeNumber;
+        }
         public bool SearchForStore( int storeNumer){
            
             using(var db = new AppStoreContext()){

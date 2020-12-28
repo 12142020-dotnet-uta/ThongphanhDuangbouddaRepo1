@@ -39,5 +39,38 @@ namespace AppStore.DAL
 
             return ps;
         }
+        public bool CheckProductAvailabilty(int storeID, int quantity){
+            bool available = false;
+            int availableQuantit = 0;
+            using(var db = new AppStoreContext()){
+                var product = db.Products
+                    .Where(x =>x.StoreId == storeID)
+                    .FirstOrDefault();
+                    availableQuantit = product.Quantity;
+                if(product.Quantity -  quantity >= 0){
+                    //TODO: In future update database product if customer add product to cart
+                    available = true;
+                } 
+            }
+            Console.WriteLine("enter quantity " + quantity + " available "  + availableQuantit);
+            
+
+            return available;
+
+        }
+        /*
+        public void Checkout(List<Product> productList){
+            using(var db = new AppStoreContext()){
+                foreach(var product in productList){
+                var dbProuct = db.Products
+                .Where(x =>x.ProductID == product.ProductID)
+                .FirstOrDefault();
+                dbProuct.Quantity = dbProuct.Quantity - product.Quantity;
+                }
+    
+            }
+
+        }
+        */
     }
 }
