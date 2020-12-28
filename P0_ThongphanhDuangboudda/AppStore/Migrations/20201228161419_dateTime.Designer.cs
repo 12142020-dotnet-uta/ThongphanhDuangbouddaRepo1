@@ -4,14 +4,16 @@ using AppStore.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AppStore.Migrations
 {
     [DbContext(typeof(AppStoreContext))]
-    partial class AppStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20201228161419_dateTime")]
+    partial class dateTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +67,7 @@ namespace AppStore.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("StoreLocationId")
+                    b.Property<string>("StoreLocation")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");

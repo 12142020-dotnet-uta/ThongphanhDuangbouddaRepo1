@@ -37,7 +37,7 @@ namespace AppStore.DAL
 
         }
         //customer checkout //added to history
-        public void Checkout(List<Product> checkoutList){
+        public void Checkout(List<Product> checkoutList, int storeId, int customerId){
             using(var db = new AppStoreContext()){
                 foreach(var product in checkoutList){
                     var dbProuct = db.Products

@@ -58,6 +58,7 @@ namespace AppStore
                     Console.WriteLine("No Suggested Products yet ...");
                 }
                 int storeNumber = 0;
+                // do while Login
                 do{
                    
                    // bool num = false;
@@ -97,13 +98,7 @@ namespace AppStore
                         bool addToCart = false;
                         correctItemNumber = false;
                         itemNumber = product.GetItemNumber();
-                        //Console.WriteLine("Produc tNumber \tName \t\tPDescription \tCategory \tPrice \t\tQuantity \t\tStoreID \n");
-                        //Console.WriteLine(product.viewProduct(storeNumer));
-                        
-                        //Console.Write("Enter the product number you want to purchase : ");
-                        //enter = Console.ReadLine().Trim();
-                        //correctItemNumber = Int32.TryParse(enter, out itemNumber);
-                       
+
                             //check if match
                         foundProduct =  product.SearchForProducts(itemNumber);
                         if(foundProduct != null){
@@ -147,8 +142,8 @@ namespace AppStore
                     Console.WriteLine("at checkout");
                     Console.WriteLine(menu.ViewCart(cart));
 
-
-                    cusDAL.Checkout(cart);
+                    Console.WriteLine("jim shop at store Number : " + customer.CustomerId);
+                    cusDAL.Checkout(cart, storeNumber, customer.CustomerId);
                     //Options checkout()// or logout
 
 
