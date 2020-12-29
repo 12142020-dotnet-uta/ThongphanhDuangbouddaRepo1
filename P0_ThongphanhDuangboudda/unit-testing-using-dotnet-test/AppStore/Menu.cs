@@ -47,16 +47,6 @@ namespace AppStore
             
             return str;
         }
-        public string viewGeneralOrderHistory(int customerID){
-            string str = "";
-            return str;
-        }
-        public  string ViewSpicificStoreOrderHistory(){
-            string str = "";
-            return str;
-        }
-        
-        
         
     }
 }

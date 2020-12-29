@@ -16,12 +16,12 @@ namespace AppStore
             Menu menu = new Menu();
             OrderHistoryUI orderHistoryUI = new OrderHistoryUI();
             AddProductDAL productDAL = new AddProductDAL();
-            Customer customer = new Customer();
+           
             CustomerDAL cusDAL = new CustomerDAL();
             AddStore addStore = new AddStore();
             AddProduct product = new AddProduct();
             List<Product> listProducts = new List<Product>();
-            List<Product> cart = new List<Product>();
+           
 
             string enter = "";
             bool logIn = true;
@@ -42,11 +42,15 @@ namespace AppStore
                 login.AdminLogin();
 
             }else{
-                customer = login.CustomerLogin(customer);
+               // customer = login.CustomerLogin(customer);
             }
 
             
             do{
+                logIn = true;
+                Customer customer = new Customer();
+                List<Product> cart = new List<Product>();
+                customer = login.CustomerLogin(customer); 
                 // getUserName()
                 Customer returnCustomer = cusDAL.IsExist(customer);
                 if(returnCustomer != null){
@@ -138,6 +142,8 @@ namespace AppStore
                                  correctItemNumber = true;
                             } else if(enter[0] == 'Y' || enter[0] == 'y'){
                                 correctItemNumber = false;
+                            }else if(enter[0] == 'L' || enter[0] == 'l'){
+                                logIn = false;
                             }else{
                                 checkOut = true;
                             }
@@ -146,26 +152,70 @@ namespace AppStore
                     }while(!correctItemNumber);
                     if(checkOut){
                         cusDAL.Checkout(cart, storeNumber, customer.CustomerId);
-                        Console.WriteLine("==================================Order Histories==================================================");
-                        Console.WriteLine("Item Name \t Quantity \t Price ");
-                        Console.WriteLine( orderHistoryUI.GetGeneralOrderHistory(customer.CustomerId));
+                      //  Console.WriteLine("==================================Order Histories==================================================");
+                       // Console.WriteLine("Item Name \t Quantity \t Price \t     At store# ");
+                       // Console.WriteLine( orderHistoryUI.GetGeneralOrderHistory(customer.CustomerId));
                         checkOut = false;
                     }
+                    if(logIn){
+                        //view history
+                    Console.WriteLine("==================================Order Histories==================================================");
+                    Console.WriteLine("Item Name \t Quantity \t Price \t     At store# ");
+                    Console.WriteLine( orderHistoryUI.GetGeneralOrderHistory(customer.CustomerId));
+                     
                     bool options = true;
-                    do{
-                        Console.WriteLine("Press Y or y to constinue to shop, enter store# to view order history for specific store, else exit program");
+                    //view specific store
+                    
+                        Console.WriteLine("Enter Y or y to view order history for specific store, C or c to continue shoping, else  to logout");
+                        enter = Console.ReadLine().Trim();
+                        if(enter.Length == 0){
+                            logIn = false;
+                        } else if(enter[0] == 'Y' || enter[0] == 'y'){
+                            bool viewingAStore = true;
+                            do{
+                                 int num = addStore.getNumber();
+                                 bool found = addStore.SearchForStore(num);
+                                 if(found){
+                                    Console.WriteLine("==================================Order Histories For Stroe # {0}  ==================================================", num);
+                                    Console.WriteLine("Item Name \t Quantity \t Price \t     At store# ");
+                                    Console.WriteLine(orderHistoryUI.GetSpecificStoreOrderHistory(customer.CustomerId, num)); 
+                                    Console.WriteLine("Continue to view Other stores ?");
+                                    string str = Console.ReadLine().Trim();
+                                    if(str.Length == 0){
+                                        viewingAStore = false;
+                                    }else if(str[0] == 'Y' || str[0] =='y'){
+                                        viewingAStore = true;
+                                    }else{
+                                        viewingAStore = false;
+                                    }
+                                 }else{Console.WriteLine("Invalid, Please re-enter storeNumber");}
+
+                            }while(viewingAStore);
+                                
+                        }else if(enter[0] == 'C' || enter[0] =='c'){
+                            logIn = true;
+
+                        }else { logIn = false;}
+
+                    }
+
+                    if(logIn){
+                    
+                        Console.WriteLine("Continue to shop: Press y or Y; enter any thing else to logout");
                         enter = Console.ReadLine().Trim();
                          if(enter.Length == 0){
-                            conntinueToShop = false;
-                        } else if(enter[0] == 'Y' || enter[0] == 'y'){
-                            conntinueToShop = true;
-                        }else { conntinueToShop = false;}
+                            logIn = false;
+                         }else if(enter[0] == 'Y' || enter[0] == 'y'){
+                            logIn = true;
+                         }else{
+                            logIn = false;
+                        }
 
+                    }
 
-                    }while(options);
+                }while(logIn); //logout
 
-                }while(logIn);
-
+                Console.WriteLine("You are logged out");
                 Console.WriteLine("Press Y or y to constinue to shop, else exit program");
                 enter = Console.ReadLine().Trim();
                 if(enter.Length == 0){

@@ -22,7 +22,8 @@ namespace AppStore
         public void AdminLogin(){
                         //Add store
                 AddProduct newP = new AddProduct();
-                newP.getClassName();
+                RepositoryLayer repo = new RepositoryLayer();
+               
                      
                 string[] categories = {"Electronic","Grocery","Clothing"};
                 /*
@@ -44,7 +45,7 @@ namespace AppStore
                         AddStore addStore = new AddStore();
                         Store newStore = addStore.AddNewStore();  
                         Console.WriteLine("Added Store");
-                        // repo.AddStore(newStore);
+                        repo.AddStore(newStore);
                        // Environment.Exit(0);
                     }else{
                         bool addingNewProduct = true;

@@ -16,10 +16,11 @@ namespace AppStore
                     .AsNoTracking()
                     .ToList();
                 foreach(var order in orders){
-                    str = str + order.ProductName + "\t\t" + order.Quantity + "\t" + order.Price + order.StoreLocationId + "\n";
+                    str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\n";
                 }
 
             }
+            if(str.Length == 0){ str = "No Record";}
             return str;
         }
         public string GetSpecificStoreOrderHistory(int customerId, int storeId){
@@ -30,9 +31,12 @@ namespace AppStore
                     .AsNoTracking()
                     .ToList();
                 foreach(var order in orders){
-                    str = str + order.ProductName + "\t\t     " + order.Quantity + "\t\t  "  + order.Price + order.StoreLocationId + "\n";
+                    str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\n";
+               
                 }
             }
+            if(str.Length == 0){ str = "No Record";}
+
 
             return str;
         }
