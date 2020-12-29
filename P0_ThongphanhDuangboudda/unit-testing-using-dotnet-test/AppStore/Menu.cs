@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using AppStore.DAL;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 namespace AppStore
 {
     public class Menu
@@ -47,6 +49,72 @@ namespace AppStore
             
             return str;
         }
-        
+        public string ViewOrderByEarliest(int customerId){
+            string str = "";
+            using(var db = new AppStoreContext()){
+                var orders = db.OrderHistories
+                             .Where(x =>x.CustumerId == customerId)
+                             .OrderBy(x =>x.OrderDate);
+                foreach(var order in orders){
+                 str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
+                 + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\t " + order.OrderDate  + "\n";
+ 
+                }
+            }
+            if(str.Length == 0){ str = "No Record";}
+            return str;
+
+        }
+
+        public string ViewOrderByLatest(int customerId){
+            string str = "";
+            using(var db = new AppStoreContext()){
+                var orders = db.OrderHistories
+                             .Where(x =>x.CustumerId == customerId)
+                             .OrderByDescending(x =>x.OrderDate);
+                foreach(var order in orders){
+                 str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
+                 + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\t " + order.OrderDate  + "\n";
+ 
+                }
+            }
+            if(str.Length == 0){ str = "No Record";}
+            return str;
+
+        }
+
+        public string ViewOrderByCheapest(int customerId){
+            string str = "";
+            using(var db = new AppStoreContext()){
+                var orders = db.OrderHistories
+                             .Where(x =>x.CustumerId == customerId)
+                             .OrderBy(x =>x.Price);
+                foreach(var order in orders){
+                 str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
+                 + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\t " + order.OrderDate  + "\n";
+ 
+                }
+            }
+            if(str.Length == 0){ str = "No Record";}
+            return str;
+
+        }
+
+        public string ViewOrderByMostExpensive(int customerId){
+            string str = "";
+            using(var db = new AppStoreContext()){
+                var orders = db.OrderHistories
+                             .Where(x =>x.CustumerId == customerId)
+                             .OrderByDescending(x =>x.Price);
+                foreach(var order in orders){
+                 str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
+                 + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\t " + order.OrderDate  + "\n";
+ 
+                }
+            }
+            if(str.Length == 0){ str = "No Record";}
+            return str;
+
+        }
     }
 }

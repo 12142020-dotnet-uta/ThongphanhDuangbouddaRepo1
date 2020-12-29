@@ -88,7 +88,7 @@ namespace AppStore
                     //getList of products
                     listProducts = productDAL.getListOfProducts(storeNumber);
                     foreach(var p in listProducts){
-                        Console.WriteLine("got product list " + p.Price);
+                       // Console.WriteLine("got product list " + p.Price);
                     }
                     Console.WriteLine("Produc tNumber \tName \t\tPDescription \tCategory \tPrice \t\tQuantity \t\tStoreID \n");
                     Console.WriteLine(product.viewProduct(storeNumber));
@@ -162,6 +162,18 @@ namespace AppStore
                     Console.WriteLine("==================================Order Histories==================================================");
                     Console.WriteLine("Item Name \t Quantity \t Price \t     At store# ");
                     Console.WriteLine( orderHistoryUI.GetGeneralOrderHistory(customer.CustomerId));
+                    Console.WriteLine("============== View Order by Earlies ==========================");
+                    Console.WriteLine("Item Name \t Quantity \t Price \t     At store# \t Order Date");
+                    Console.WriteLine(menu.ViewOrderByEarliest(customer.CustomerId));
+                    Console.WriteLine("============== View by Latest ==================================");
+                     Console.WriteLine("Item Name \t Quantity \t Price \t     At store# \t Order Date");
+                    Console.WriteLine(menu.ViewOrderByLatest(customer.CustomerId));
+                    Console.WriteLine("============== View by Most Expensive ==================================");
+                     Console.WriteLine("Item Name \t Quantity \t Price \t     At store# \t Order Date");
+                    Console.WriteLine(menu.ViewOrderByMostExpensive(customer.CustomerId));
+                    Console.WriteLine("============== View by Cheapest ==================================");
+                    Console.WriteLine("Item Name \t Quantity \t Price \t     At store# \t Order Date");
+                    Console.WriteLine(menu.ViewOrderByCheapest(customer.CustomerId));
                      
                     bool options = true;
                     //view specific store

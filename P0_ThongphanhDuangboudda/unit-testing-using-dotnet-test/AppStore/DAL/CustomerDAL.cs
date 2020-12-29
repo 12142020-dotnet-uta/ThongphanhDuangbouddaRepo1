@@ -43,7 +43,8 @@ namespace AppStore.DAL
                     var dbProuct = db.Products
                         .Where(x =>x.ProductID == product.ProductID)
                         .FirstOrDefault();
-                        dbProuct.Quantity = dbProuct.Quantity - product.Quantity;
+                        //Alreday subtract when added to cart
+                        dbProuct.Quantity = dbProuct.Quantity - product.Quantity; 
                         AddToOrderHistory(product, storeId, customerId);
                 }
                 db.SaveChanges();

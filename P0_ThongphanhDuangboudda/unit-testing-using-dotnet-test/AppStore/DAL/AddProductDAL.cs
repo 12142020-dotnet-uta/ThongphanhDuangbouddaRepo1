@@ -48,7 +48,10 @@ namespace AppStore.DAL
                     .FirstOrDefault();
                     availableQuantit = product.Quantity;
                 if(product.Quantity -  quantity >= 0){
+
                     //TODO: In future update database product if customer add product to cart
+                    //product.Quantity = product.Quantity - quantity;
+
                     available = true;
                 } 
             }
