@@ -46,6 +46,8 @@ namespace AppStore.DAL
             using(var db = new AppStoreContext()){
                 db.Add(new OrderHistory{
                     CustumerId = customerId,
+                   // CustomerId = customerId,
+                   // customer.CustomerId = customerId,
                     ProductName = product.ProductName,
                     ProductDescription = product.ProductDescription,
                     Category = product.Category,
