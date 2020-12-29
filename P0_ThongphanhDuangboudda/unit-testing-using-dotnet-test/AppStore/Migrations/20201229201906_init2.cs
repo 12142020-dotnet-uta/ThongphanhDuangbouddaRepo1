@@ -2,7 +2,7 @@
 
 namespace AppStore.Migrations
 {
-    public partial class fk5 : Migration
+    public partial class init2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

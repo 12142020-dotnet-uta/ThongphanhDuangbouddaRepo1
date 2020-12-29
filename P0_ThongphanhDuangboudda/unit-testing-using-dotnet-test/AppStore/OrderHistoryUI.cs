@@ -12,7 +12,7 @@ namespace AppStore
             string str = "";
             using(var db = new AppStoreContext()){
                 var orders = db.OrderHistories
-                    .Where(b => b.CustumerId == customerId)
+                    .Where(b => b.CustomerId == customerId)
                     .AsNoTracking()
                     .ToList();
                 foreach(var order in orders){
@@ -28,7 +28,7 @@ namespace AppStore
             string str = "";
             using(var db = new AppStoreContext()){
                 var orders = db.OrderHistories
-                    .Where(b => b.CustumerId == customerId && b.StoreId == storeId)
+                    .Where(b => b.CustomerId == customerId && b.StoreId == storeId)
                     .AsNoTracking()
                     .ToList();
                 foreach(var order in orders){

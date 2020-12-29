@@ -45,9 +45,9 @@ namespace AppStore.DAL
         public static void AddToOrderHistory(Product product, int storeId, int customerId){
             using(var db = new AppStoreContext()){
                 db.Add(new OrderHistory{
-                    CustumerId = customerId,
-                   // CustomerId = customerId,
-                   // customer.CustomerId = customerId,
+
+                    CustomerId = customerId,
+
                     ProductName = product.ProductName,
                     ProductDescription = product.ProductDescription,
                     Category = product.Category,

@@ -17,7 +17,7 @@ namespace AppStore.DAL
             int number = rand.Next(0,5);
             using(var db = new AppStoreContext()){
                 var orderHis = db.OrderHistories
-                    .Where(x =>x.CustumerId == customerId)
+                    .Where(x =>x.CustomerId == customerId)
                     .AsNoTracking()
                     .ToList();
                 foreach(var order in orderHis){

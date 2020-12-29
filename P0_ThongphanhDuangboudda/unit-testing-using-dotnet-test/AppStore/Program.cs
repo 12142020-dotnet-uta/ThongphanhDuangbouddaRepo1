@@ -209,6 +209,7 @@ namespace AppStore
                                 
                         }else if(enter[0] == 'C' || enter[0] =='c'){
                             logIn = true;
+                            continue;
 
                         }else { logIn = false;}
 

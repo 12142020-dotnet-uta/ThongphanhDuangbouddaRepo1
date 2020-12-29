@@ -53,7 +53,7 @@ namespace AppStore
             string str = "";
             using(var db = new AppStoreContext()){
                 var orders = db.OrderHistories
-                             .Where(x =>x.CustumerId == customerId)
+                             .Where(x =>x.CustomerId == customerId)
                              .OrderBy(x =>x.OrderDate);
                 foreach(var order in orders){
                  str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
@@ -70,7 +70,7 @@ namespace AppStore
             string str = "";
             using(var db = new AppStoreContext()){
                 var orders = db.OrderHistories
-                             .Where(x =>x.CustumerId == customerId)
+                             .Where(x =>x.CustomerId == customerId)
                              .OrderByDescending(x =>x.OrderDate);
                 foreach(var order in orders){
                  str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
@@ -87,7 +87,7 @@ namespace AppStore
             string str = "";
             using(var db = new AppStoreContext()){
                 var orders = db.OrderHistories
-                             .Where(x =>x.CustumerId == customerId)
+                             .Where(x =>x.CustomerId == customerId)
                              .OrderBy(x =>x.Price);
                 foreach(var order in orders){
                  str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
@@ -104,7 +104,7 @@ namespace AppStore
             string str = "";
             using(var db = new AppStoreContext()){
                 var orders = db.OrderHistories
-                             .Where(x =>x.CustumerId == customerId)
+                             .Where(x =>x.CustomerId == customerId)
                              .OrderByDescending(x =>x.Price);
                 foreach(var order in orders){
                  str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 

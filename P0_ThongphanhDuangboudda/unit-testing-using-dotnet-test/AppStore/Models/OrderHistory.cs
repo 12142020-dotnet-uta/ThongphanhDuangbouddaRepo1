@@ -10,7 +10,7 @@ namespace AppStore.Models
         [Key]
         public int OrderId{get;set;}
 
-        public int CustumerId{get; set;}
+        public int CustomerId{get; set;}
         public Customer customer{get; set;}
 
         public string ProductName {get; set;}  
