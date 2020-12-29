@@ -155,9 +155,9 @@ namespace AppStore
                     }while(!correctItemNumber);
                     if(checkOut){
                         cusDAL.Checkout(cart, storeNumber, customer.CustomerId);
-                      //  Console.WriteLine("==================================Order Histories==================================================");
-                       // Console.WriteLine("Item Name \t Quantity \t Price \t     At store# ");
-                       // Console.WriteLine( orderHistoryUI.GetGeneralOrderHistory(customer.CustomerId));
+                  
+                        //clear cart
+                        cart.Clear();
                         checkOut = false;
                     }
                     if(logIn){
