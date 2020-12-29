@@ -2,9 +2,8 @@
 
 namespace PrimeService
 {
-    public class Class1
+    public class PrimeService
     {
-        
         public bool IsPrime(int candidate)
         {
             Console.WriteLine("called");
@@ -14,5 +13,6 @@ namespace PrimeService
             }
                 throw new NotImplementedException("Not fully implemented.");
         }
+        
     }
 }
