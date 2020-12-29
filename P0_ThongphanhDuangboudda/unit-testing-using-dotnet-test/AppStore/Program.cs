@@ -14,6 +14,7 @@ namespace AppStore
     
             Login login = new Login();
             Menu menu = new Menu();
+            OrderHistoryUI orderHistoryUI = new OrderHistoryUI();
             AddProductDAL productDAL = new AddProductDAL();
             Customer customer = new Customer();
             CustomerDAL cusDAL = new CustomerDAL();
@@ -46,6 +47,7 @@ namespace AppStore
 
             
             do{
+                // getUserName()
                 Customer returnCustomer = cusDAL.IsExist(customer);
                 if(returnCustomer != null){
                     customer = returnCustomer;
@@ -94,6 +96,7 @@ namespace AppStore
                     // add product to cart
                     bool available = false;
                     int quantity = 0;
+                    bool checkOut = false;
                     do{
                         bool addToCart = false;
                         correctItemNumber = false;
@@ -127,38 +130,60 @@ namespace AppStore
                             
                         }
                         if(addToCart){
- 
-                            Console.WriteLine("Continue to shop as " + customer.FirstName);
-                            Console.WriteLine("Press 'y' or 'Y' to continue; else to checkout ");
+                            Console.WriteLine(menu.ViewCart(cart));
+                            Console.WriteLine("Continue to shop as ===> " + customer.FirstName);
+                            Console.WriteLine("Press 'y' or 'Y' to continue; else to checkout, L or l to logout");
                             enter = Console.ReadLine().Trim();
                             if(enter.Length == 0){
                                  correctItemNumber = true;
                             } else if(enter[0] == 'Y' || enter[0] == 'y'){
                                 correctItemNumber = false;
+                            }else{
+                                checkOut = true;
                             }
                         }
 
                     }while(!correctItemNumber);
-                    Console.WriteLine("at checkout");
-                    Console.WriteLine(menu.ViewCart(cart));
+                    if(checkOut){
+                        cusDAL.Checkout(cart, storeNumber, customer.CustomerId);
+                        Console.WriteLine("==================================Order Histories==================================================");
+                        Console.WriteLine("Item Name \t Quantity \t Price ");
+                        Console.WriteLine( orderHistoryUI.GetGeneralOrderHistory(customer.CustomerId));
+                        checkOut = false;
+                    }
+                    bool options = true;
+                    do{
+                        Console.WriteLine("Press Y or y to constinue to shop, enter store# to view order history for specific store, else exit program");
+                        enter = Console.ReadLine().Trim();
+                         if(enter.Length == 0){
+                            conntinueToShop = false;
+                        } else if(enter[0] == 'Y' || enter[0] == 'y'){
+                            conntinueToShop = true;
+                        }else { conntinueToShop = false;}
 
-                    Console.WriteLine("jim shop at store Number : " + customer.CustomerId);
-                    cusDAL.Checkout(cart, storeNumber, customer.CustomerId);
-                    //Options checkout()// or logout
 
+                    }while(options);
 
-                 
                 }while(logIn);
-                //if logout
-                //promp(leave program/ or new customer)  =>exi
-                
-                //do get a customer 
-                //customer = login.CustomerLogin(customer);
-                //back to do while.
-              
+
+                Console.WriteLine("Press Y or y to constinue to shop, else exit program");
+                enter = Console.ReadLine().Trim();
+                if(enter.Length == 0){
+                    conntinueToShop = false;
+                } else if(enter[0] == 'Y' || enter[0] == 'y'){
+                    conntinueToShop = true;
+                }else { conntinueToShop = false;}
+               
 
             }while(conntinueToShop);
         }
+
+        
+    public static string GetAnswer(){
+        string str = "";
+        return str;
+
+    }
     }
 
 }
