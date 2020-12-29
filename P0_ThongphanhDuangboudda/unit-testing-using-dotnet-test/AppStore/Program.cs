@@ -21,6 +21,7 @@ namespace AppStore
             AddStore addStore = new AddStore();
             AddProduct product = new AddProduct();
             List<Product> listProducts = new List<Product>();
+            OrderHistoryDAL orderDAL = new OrderHistoryDAL();
            
 
             string enter = "";
@@ -56,7 +57,9 @@ namespace AppStore
                 if(returnCustomer != null){
                     customer = returnCustomer;
                     Console.WriteLine("Welcome back : " + customer.FirstName);
-                    Console.WriteLine(cusDAL.geProductSuggestion(customer));
+                    Console.WriteLine("You Have Items Suggestions :");
+                    Console.WriteLine("Name: \t Price");
+                    Console.WriteLine(orderDAL.GetOrderSuggestions(customer.CustomerId));
 
                 }else{
                     repo.AddCustomer(customer);
@@ -175,7 +178,7 @@ namespace AppStore
                     Console.WriteLine("Item Name \t Quantity \t Price \t     At store# \t Order Date");
                     Console.WriteLine(menu.ViewOrderByCheapest(customer.CustomerId));
                      
-                    bool options = true;
+                   // bool options = true;
                     //view specific store
                     
                         Console.WriteLine("Enter Y or y to view order history for specific store, C or c to continue shoping, else  to logout");
