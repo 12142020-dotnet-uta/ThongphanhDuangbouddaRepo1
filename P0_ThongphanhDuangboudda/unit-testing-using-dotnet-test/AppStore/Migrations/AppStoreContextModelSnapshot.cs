@@ -47,6 +47,9 @@ namespace AppStore.Migrations
                     b.Property<string>("Category")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CustumerId")
                         .HasColumnType("int");
 
@@ -65,10 +68,14 @@ namespace AppStore.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("StoreLocationId")
+                    b.Property<int>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("StoreId");
 
                     b.ToTable("OrderHistories");
                 });
@@ -124,7 +131,37 @@ namespace AppStore.Migrations
 
                     b.HasKey("ProductID");
 
+                    b.HasIndex("StoreId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("AppStore.Models.OrderHistory", b =>
+                {
+                    b.HasOne("AppStore.Models.Customer", "customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("AppStore.Models.Store", "store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("customer");
+
+                    b.Navigation("store");
+                });
+
+            modelBuilder.Entity("AppStore.Product", b =>
+                {
+                    b.HasOne("AppStore.Models.Store", "store")
+                        .WithMany()
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("store");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using AppStore.Models;
 
 
 namespace AppStore
@@ -16,6 +17,7 @@ namespace AppStore
         public decimal Price {get; set;}
         public int Quantity{get; set;}
         public int StoreId{get; set;}
+        public Store store{get;set;}
         
     }
 }

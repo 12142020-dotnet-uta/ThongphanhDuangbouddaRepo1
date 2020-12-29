@@ -57,7 +57,7 @@ namespace AppStore
                              .OrderBy(x =>x.OrderDate);
                 foreach(var order in orders){
                  str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
-                 + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\t " + order.OrderDate  + "\n";
+                 + order.Price + order.StoreId + "        "  + order.StoreId + "\t " + order.OrderDate  + "\n";
  
                 }
             }
@@ -74,7 +74,7 @@ namespace AppStore
                              .OrderByDescending(x =>x.OrderDate);
                 foreach(var order in orders){
                  str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
-                 + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\t " + order.OrderDate  + "\n";
+                 + order.Price + order.StoreId + "        "  + order.StoreId + "\t " + order.OrderDate  + "\n";
  
                 }
             }
@@ -91,7 +91,7 @@ namespace AppStore
                              .OrderBy(x =>x.Price);
                 foreach(var order in orders){
                  str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
-                 + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\t " + order.OrderDate  + "\n";
+                 + order.Price + order.StoreId + "        "  + order.StoreId + "\t " + order.OrderDate  + "\n";
  
                 }
             }
@@ -108,7 +108,7 @@ namespace AppStore
                              .OrderByDescending(x =>x.Price);
                 foreach(var order in orders){
                  str = str + order.ProductName + "\t\t   " + order.Quantity + "\t\t  " 
-                 + order.Price + order.StoreLocationId + "        "  + order.StoreLocationId + "\t " + order.OrderDate  + "\n";
+                 + order.Price + order.StoreId + "        "  + order.StoreId + "\t " + order.OrderDate  + "\n";
  
                 }
             }

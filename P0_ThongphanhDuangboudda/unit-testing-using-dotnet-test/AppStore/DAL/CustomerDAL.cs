@@ -28,14 +28,6 @@ namespace AppStore.DAL
             return cus;
         }
 
-        //Get product suggestion
-        public string geProductSuggestion(Customer customer){
-            string str ="";
-            str = "Your should buy these items";
-
-            return str;
-
-        }
         //customer checkout //added to history
         public void Checkout(List<Product> checkoutList, int storeId, int customerId){
             using(var db = new AppStoreContext()){
@@ -59,7 +51,8 @@ namespace AppStore.DAL
                     Category = product.Category,
                     Price = product.Price,
                     Quantity = product.Quantity,
-                    StoreLocationId = storeId,
+                    StoreId = storeId,
+                    
                     OrderDate = DateTime.Now
 
                 });

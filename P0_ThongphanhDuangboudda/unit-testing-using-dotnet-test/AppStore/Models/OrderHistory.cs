@@ -9,7 +9,9 @@ namespace AppStore.Models
         //TODO
         [Key]
         public int OrderId{get;set;}
+
         public int CustumerId{get; set;}
+        public Customer customer{get; set;}
 
         public string ProductName {get; set;}  
         public string ProductDescription{get; set;}
@@ -17,7 +19,8 @@ namespace AppStore.Models
         public decimal Price {get; set;}
         public int Quantity{get; set;}
         public DateTime OrderDate{ get; set;}
-        public int StoreLocationId{ get; set;}
+        public int StoreId{ get; set;}
+        public Store store {get; set;}
         
 
         

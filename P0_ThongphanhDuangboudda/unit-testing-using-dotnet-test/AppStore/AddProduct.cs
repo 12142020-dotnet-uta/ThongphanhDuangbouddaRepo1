@@ -78,9 +78,10 @@ namespace AppStore
                     product.Category = productCategory;
                     invalidInput = false;
                 }else{
+                    Console.WriteLine("Please re-enter a number: ");
                     invalidInput = true;
                 }
-                    Console.WriteLine("Please re-enter a number: ");
+                   
                 }while(invalidInput);
                 invalidInput = true;
 

@@ -13,7 +13,7 @@ namespace AppStore.DAL
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=StoreDB;Trusted_Connection = True;");
+            => options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=P0_DB;Trusted_Connection = True;");
         
         
     }
