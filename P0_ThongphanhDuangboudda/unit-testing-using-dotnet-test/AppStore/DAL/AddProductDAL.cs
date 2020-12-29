@@ -47,11 +47,21 @@ namespace AppStore.DAL
                     .Where(x =>x.StoreId == storeID)
                     .FirstOrDefault();
                     availableQuantit = product.Quantity;
+                
+                try{
+                    if(product.Quantity -  quantity < 0){
+
+                        throw new ArithmeticException("Access denied - You must enter fewer quantity");
+                    }
+
+                }
+                catch(Exception e){ 
+                    Console.WriteLine("Somthings wrong: " + e);
+                }
                 if(product.Quantity -  quantity >= 0){
 
                     //TODO: In future update database product if customer add product to cart
                     //product.Quantity = product.Quantity - quantity;
-
                     available = true;
                 } 
             }
