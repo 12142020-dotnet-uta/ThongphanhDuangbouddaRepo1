@@ -22,6 +22,7 @@ namespace AppStore
 
             }
             if(str.Length == 0){ str = "No Record";}
+            
             return str;
         }
         public string GetSpecificStoreOrderHistory(int customerId, int storeId){
