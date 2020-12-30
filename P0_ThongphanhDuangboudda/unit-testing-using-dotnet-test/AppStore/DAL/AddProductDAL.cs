@@ -6,6 +6,12 @@ namespace AppStore.DAL
 {
     public class AddProductDAL
     {
+        /*
+        * PURPOSE : Add product to database
+        *
+        * RETURN : None
+        *
+        *F*/
         public void AddProduct(Product product){
         //getStoreID //read store
             using(var db = new AppStoreContext()){
@@ -28,6 +34,12 @@ namespace AppStore.DAL
             }
 
         }
+        /*
+        * PURPOSE : Get list of product by store ID
+        *
+        * RETURN : Available products
+        *
+        *F*/
 
         public List<Product> getListOfProducts(int storeID){
             List<Product> ps = new List<Product>();
@@ -39,6 +51,12 @@ namespace AppStore.DAL
 
             return ps;
         }
+        /*
+        * PURPOSE : Check product availability
+        *
+        * RETURN : True or false
+        *
+        *F*/
         public bool CheckProductAvailabilty(int storeID, int quantity){
             bool available = false;
             int availableQuantit = 0;

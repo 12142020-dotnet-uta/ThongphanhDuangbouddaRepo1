@@ -7,6 +7,12 @@ namespace AppStore.DAL
 {
     public class OrderHistoryDAL
     {
+        /*
+        * PURPOSE : Get order suggestion for customer
+        *
+        * RETURN : String of product information
+        *
+        *F*/
         public string GetOrderSuggestions(int customerId){
             var rand = new Random();
             string str = "";

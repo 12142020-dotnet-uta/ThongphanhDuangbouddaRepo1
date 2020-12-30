@@ -7,29 +7,15 @@ namespace AppStore
 {
     public class Menu
     {
-        /*
-        * PURPOSE : Input line of text from keyboard
-        *
-        * RETURN :  VALID_DATA = valid read
-        *          (see keyboard.h for the rest)
-        *
-        * NOTES :   Unknown characters returned as '*'
-        *           Backspace is the only editing allowed.
-        *F*/
+     
         
         /*
-        * PURPOSE : Input line of text from keyboard
+        * PURPOSE : View store information
         *
-        * RETURN :  VALID_DATA = valid read
-        *          (see keyboard.h for the rest)
+        * RETURN : String of store information
         *
-        * NOTES :   Unknown characters returned as '*'
-        *           Backspace is the only editing allowed.
         *F*/
-        public void GetLogInMenue(){
-            Console.WriteLine("Presse 1. \t ");
 
-        }
         public string viewStore(){
             string str = "";
             using(var db = new AppStoreContext()){
@@ -41,6 +27,12 @@ namespace AppStore
 
             return str;
         }
+         /*
+        * PURPOSE : View all products in the cart
+        *
+        * RETURN : String of product information
+        *
+        *F*/
         public string ViewCart(List<Product> carts){
             string str ="";
             foreach(var product in carts){
@@ -49,6 +41,12 @@ namespace AppStore
             
             return str;
         }
+         /*
+        * PURPOSE : View personal order history
+        *
+        * RETURN : String of Earliest time
+        *
+        *F*/
         public string ViewOrderByEarliest(int customerId){
             string str = "";
             using(var db = new AppStoreContext()){
@@ -65,6 +63,12 @@ namespace AppStore
             return str;
 
         }
+         /*
+        * PURPOSE : View order history by latest time
+        *
+        * RETURN : String of order history by latest time
+        *
+        *F*/
 
         public string ViewOrderByLatest(int customerId){
             string str = "";
@@ -82,7 +86,12 @@ namespace AppStore
             return str;
 
         }
-
+        /*
+        * PURPOSE : View order history by cheapest
+        *
+        * RETURN : String of order history by cheapest
+        *
+        *F*/
         public string ViewOrderByCheapest(int customerId){
             string str = "";
             using(var db = new AppStoreContext()){
@@ -99,6 +108,12 @@ namespace AppStore
             return str;
 
         }
+        /*
+        * PURPOSE : View order history by most expensive
+        *
+        * RETURN : String of order history by most expensive
+        *
+        *F*/
 
         public string ViewOrderByMostExpensive(int customerId){
             string str = "";

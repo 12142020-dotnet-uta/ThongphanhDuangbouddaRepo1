@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace AppStore
 {
+    
     public class AddStore
     {/*
            var found = db.Customers    
@@ -45,6 +46,12 @@ namespace AppStore
             
             return false;
         }
+        /*
+        * PURPOSE : Add store to database
+        *
+        * RETURN : Return a store object
+        *
+        *F*/
         public Store AddNewStore(){
             Store newStore = new Store();
             bool enterCorrectly = false;

@@ -7,6 +7,12 @@ namespace AppStore.DAL
 {
     public class CustomerDAL
     {
+        /*
+        * PURPOSE : Check if user exist on database
+        *
+        * RETURN : Customer's object
+        *
+        *F*/
         
         public Customer IsExist(Customer customer){
             Customer cus = customer;
@@ -29,6 +35,12 @@ namespace AppStore.DAL
         }
 
         //customer checkout //added to history
+        /*
+        * PURPOSE : Checkout
+        *
+        * RETURN : None
+        *
+        *F*/
         public void Checkout(List<Product> checkoutList, int storeId, int customerId){
             using(var db = new AppStoreContext()){
                 foreach(var product in checkoutList){
@@ -42,6 +54,12 @@ namespace AppStore.DAL
                 db.SaveChanges();
             }   
         }
+        /*
+        * PURPOSE : Add order to order history
+        *
+        * RETURN : None
+        *
+        *F*/
         public static void AddToOrderHistory(Product product, int storeId, int customerId){
             using(var db = new AppStoreContext()){
                 db.Add(new OrderHistory{

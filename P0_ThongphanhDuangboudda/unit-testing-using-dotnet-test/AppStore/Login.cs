@@ -6,6 +6,12 @@ namespace AppStore
     public class Login
     {
       
+         /*
+        * PURPOSE : get customer username
+        *
+        * RETURN : object of a customer
+        *
+        *F*/
 
         public Customer CustomerLogin(Customer cus){
             Customer customer = cus;
@@ -18,7 +24,12 @@ namespace AppStore
 
             return customer;
         }
-
+        /*
+        * PURPOSE : add stores and products to Database
+        *
+        * RETURN : None
+        *
+        *F*/
         public void AdminLogin(){
                         //Add store
                 AddProduct newP = new AddProduct();
@@ -75,7 +86,12 @@ namespace AppStore
 
         }
 
-        
+        /*
+        * PURPOSE : get user first name
+        *
+        * RETURN : string of first name
+        *
+        *F*/
         public static string getFirstName(){
             string firstName = "default";
             bool correctFirstName = false;
@@ -92,6 +108,12 @@ namespace AppStore
                 }while(!correctFirstName);
             return  firstName;
         }
+        /*
+        * PURPOSE : get user last name
+        *
+        * RETURN : string of last name
+        *
+        *F*/
         public static string getLastName(){
             string lastName = "";
                 //get last name 

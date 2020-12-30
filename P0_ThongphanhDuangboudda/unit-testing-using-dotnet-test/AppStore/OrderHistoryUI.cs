@@ -8,6 +8,12 @@ namespace AppStore
 {
     public class OrderHistoryUI
     {
+        /*
+        * PURPOSE : View general order history
+        *
+        * RETURN : String of general order history
+        *
+        *F*/
         public string GetGeneralOrderHistory(int customerId){
             string str = "";
             using(var db = new AppStoreContext()){
@@ -25,6 +31,12 @@ namespace AppStore
             
             return str;
         }
+        /*
+        * PURPOSE : View order history by specific store
+        *
+        * RETURN : String of order history by specific store
+        *
+        *F*/
         public string GetSpecificStoreOrderHistory(int customerId, int storeId){
             string str = "";
             using(var db = new AppStoreContext()){

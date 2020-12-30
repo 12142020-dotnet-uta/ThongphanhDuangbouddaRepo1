@@ -10,6 +10,12 @@ namespace AppStore
         public void getClassName(){
             Console.WriteLine("it  is AddProduct");
         }
+        /*
+        * PURPOSE : View product by store ID
+        *
+        * RETURN : String of products available
+        *
+        *F*/
         public string viewProduct(int storeID){
             string str ="";
             using(var db = new AppStoreContext()){
@@ -23,7 +29,12 @@ namespace AppStore
 
             return str;
         }
-        
+        /*
+        * PURPOSE : Add procuts to database
+        *
+        * RETURN : String of order history by cheapest
+        *
+        *F*/
         public void AddNewProduct(){
             Product product = new Product();
             string[] categories = {"Electronic","Grocery","Clothing"};
@@ -108,7 +119,12 @@ namespace AppStore
 
 
         }
-
+        /*
+        * PURPOSE : Search for product by ID
+        *
+        * RETURN : Product object match by ID
+        *
+        *F*/
         public Product SearchForProducts(int id){
             
             using(var db = new AppStoreContext()){
@@ -122,6 +138,12 @@ namespace AppStore
 
             return null;
         }
+        /*
+        * PURPOSE : get item number from user
+        *
+        * RETURN : integer
+        *
+        *F*/
         public int GetItemNumber(){
             bool correctItemNumber = true;
             string enter = "";
@@ -136,7 +158,12 @@ namespace AppStore
            return itemNumber;
 
         }
-
+        /*
+        * PURPOSE : get quantity from user
+        *
+        * RETURN : integer
+        *
+        *F*/
         public int getQuantity(){
             bool correctItemNumber = true;
             string enter = "";
