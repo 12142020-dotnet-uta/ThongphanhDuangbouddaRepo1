@@ -12,4 +12,8 @@
     <Folder Include="Views\OrderHistory\NewFolder\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
+  </ItemGroup>
+
 </Project>
