@@ -26,8 +26,11 @@ namespace AppStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+           // services.AddDbContext<AppStoreContext>();
+            
             services.AddDbContext<AppStoreContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AppStoreContext")));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
