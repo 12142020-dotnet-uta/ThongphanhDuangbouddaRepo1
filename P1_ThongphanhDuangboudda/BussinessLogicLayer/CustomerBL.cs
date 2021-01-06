@@ -1,23 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ModelLayer.Models;
+using RepositoryLayer;
 
 namespace BussinessLogicLayer
 {
     public class CustomerBL
     {
-        bool IsExistingCustomer(string firstName, string lastName)
+        private readonly CustomerRPTL _cusRPTL;
+        public CustomerBL(CustomerRPTL repositoryLayer)
         {
-            bool found = true;
-            if (found)
+            _cusRPTL = repositoryLayer;
+
+        }
+        public Customer IsExistingCustomer(Customer cus)
+        {
+            Customer customer = _cusRPTL.IsExistingCustomer(cus);
+            if(customer != null)
             {
-                return true;
+                return customer;
             }
             else
             {
-                return false;
-            }
-
+                return null;
+            }  
        
         }
     }

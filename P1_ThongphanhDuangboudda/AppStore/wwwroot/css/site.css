@@ -20,7 +20,7 @@ for details on configuring this project to bundle and minify static web assets.
     float: left;
 }
 h2{
-    color: blue;
+    color: red;
 }
 .text-center{
     background-image: url("trollHunter.jpg");
@@ -32,6 +32,11 @@ h2{
     background-repeat: no-repeat;
     background-size: auto;
    
+}
+#errorMessage {
+    display: inline-block;
+    color: red;
+    font-weight: bold;
 }
 
 a.navbar-brand {

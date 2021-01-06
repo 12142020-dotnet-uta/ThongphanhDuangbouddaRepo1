@@ -10,6 +10,9 @@
     background-repeat: no-repeat;
     background-size: auto;
 }
-h2{
-    color: blue;
+
+#errorMessage{
+    display: inline-block;
+    color: red;
+    font-weight: bold;
 }
