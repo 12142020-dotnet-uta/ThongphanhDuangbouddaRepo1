@@ -23,7 +23,20 @@ namespace AppStore.Controllers
         {
             return View();
         }
+        //GET: CartDetail
+        public async Task<IActionResult> CartDetail()
+        {
+            return View(await _context.Carts.ToListAsync());
+        }
         //POST: Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(string firstName, string LastName)
+        {
+            System.Diagnostics.Debug.WriteLine(" log in Post called" + firstName + " and : " + LastName);
+            return View();
+        }
+
 
         // GET: Customers
 

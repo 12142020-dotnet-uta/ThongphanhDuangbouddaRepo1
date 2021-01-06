@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RepositoryLayer;
+using BussinessLogicLayer;
+using ModelLayer;
 using Microsoft.EntityFrameworkCore;
 
 namespace AppStore
@@ -31,6 +33,9 @@ namespace AppStore
             services.AddDbContext<AppStoreContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AppStoreContext")));
             services.AddTransient<AppStoreContext>();
+            services.AddScoped<CustomerBL>();
+            services.AddScoped<CustomerRPTL>();
+
             /*
             services.AddDbContext<AppStoreContext>(options =>
            options.UseSqlServer(@"Server=localhost\\SQLEXPRESS;Database=TrollStore_DB1;Trusted_Connection = True"));

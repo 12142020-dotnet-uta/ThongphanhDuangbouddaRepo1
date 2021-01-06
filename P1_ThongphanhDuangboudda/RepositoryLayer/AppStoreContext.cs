@@ -27,9 +27,15 @@ namespace RepositoryLayer
         
         
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=AppStore;Trusted_Connection = True;");
-        
-        
+        {
+            if (!options.IsConfigured)
+            {
+                options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=AppStore;Trusted_Connection = True;");
+            }
 
+        }
+            
+        
+       
     }
 }
