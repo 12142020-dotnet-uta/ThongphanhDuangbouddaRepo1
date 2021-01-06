@@ -26,11 +26,15 @@ namespace AppStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-           // services.AddDbContext<AppStoreContext>();
+            //services.AddDbContext<AppStoreContext>();
             
             services.AddDbContext<AppStoreContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AppStoreContext")));
-            
+            services.AddTransient<AppStoreContext>();
+            /*
+            services.AddDbContext<AppStoreContext>(options =>
+           options.UseSqlServer(@"Server=localhost\\SQLEXPRESS;Database=TrollStore_DB1;Trusted_Connection = True"));
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
