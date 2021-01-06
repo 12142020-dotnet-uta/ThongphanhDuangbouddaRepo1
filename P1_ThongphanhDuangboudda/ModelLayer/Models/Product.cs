@@ -18,6 +18,7 @@ namespace ModelLayer.Models
         public int Quantity { get; set; }
         public int StoreId { get; set; }
         public Store store { get; set; }
+        public byte[] ImageData { get; set; }
 
     }
 }

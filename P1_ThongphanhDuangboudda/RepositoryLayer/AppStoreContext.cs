@@ -12,6 +12,8 @@ namespace AppStore.DAL
         public DbSet<Store> Stores {get; set;}
         public DbSet<Product> Products {get; set;}
         public DbSet<OrderHistory> OrderHistories { get; set;}
+        public DbSet<TicketNumber> TicketNumbers { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
