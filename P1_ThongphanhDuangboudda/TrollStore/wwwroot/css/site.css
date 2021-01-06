@@ -10,22 +10,8 @@ for details on configuring this project to bundle and minify static web assets.
   background-color:#C4CDC1;
 } */
 
-.nav-login{
-    float: left;
-}
-.nav-cart{
-    float: left;
-}
-.text-center{
-    background-image: url("trollHunter.jpg");
-    color: white;
-    font-weight: bolder;
-    height: 200px;
-    padding-top: 60px;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: auto;
-   
+.navbar-nav .nav-cart{
+  float: left;
 }
 
 a.navbar-brand {
@@ -35,6 +21,7 @@ a.navbar-brand {
    
     
 }
+
 
 /* Provide sufficient contrast against white background */
 a {

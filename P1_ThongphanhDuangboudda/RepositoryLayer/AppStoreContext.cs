@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using ModelLayer.Models;
 
-namespace AppStore.DAL
+namespace RepositoryLayer
  {
     public class AppStoreContext: DbContext
     {
@@ -14,11 +14,15 @@ namespace AppStore.DAL
         public DbSet<OrderHistory> OrderHistories { get; set;}
         public DbSet<TicketNumber> TicketNumbers { get; set; }
         public DbSet<Cart> Carts { get; set; }
-
+        public AppStoreContext(DbContextOptions<AppStoreContext> options)
+               : base(options)
+        {
+        }
+        /*
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Store_DB2;Trusted_Connection = True;");
-        
-        
+        */
+
     }
 }
