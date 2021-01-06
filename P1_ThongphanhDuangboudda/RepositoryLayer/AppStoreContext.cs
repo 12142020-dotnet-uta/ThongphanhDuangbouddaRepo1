@@ -14,21 +14,21 @@ namespace RepositoryLayer
         public DbSet<OrderHistory> OrderHistories { get; set;}
         public DbSet<TicketNumber> TicketNumbers { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        /*
-        public AppStoreContext(DbContextOptions options) : base(options)
+       
+        public AppStoreContext() 
         {
 
         }
-        */
+        
         public AppStoreContext(DbContextOptions<AppStoreContext> options)
                : base(options)
         {
         }
         
-        /*
+        
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Troll_DB2;Trusted_Connection = True;");
-        */
+            => options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=AppStore;Trusted_Connection = True;");
+        
         
 
     }
