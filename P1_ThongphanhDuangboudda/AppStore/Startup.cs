@@ -45,6 +45,8 @@ namespace AppStore
                 options.Cookie.IsEssential = true;
             });
 
+            services.AddHttpContextAccessor();
+           // services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             /*
             services.AddDbContext<AppStoreContext>(options =>

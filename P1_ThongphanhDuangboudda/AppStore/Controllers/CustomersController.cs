@@ -8,6 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using ModelLayer.Models;
 using RepositoryLayer;
 using BussinessLogicLayer;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
+using System.Web;
+
+//using System.Web.Mvc;
+
+
 
 namespace AppStore.Controllers
 {
@@ -16,7 +23,11 @@ namespace AppStore.Controllers
         private readonly AppStoreContext _context;
         private readonly CustomerBL _cusBL;
 
-        public object Session { get; private set; }
+        // public object Session { get; private set; }
+        public const string SessionKeyName = "_Name";
+        public const string SessionKeyLast = "_Last";
+        public const string  CustomerId = "_Id";
+        const string SessionKeyTime = "_Time";
 
         public CustomersController(AppStoreContext context, CustomerBL cus)
         {
@@ -24,8 +35,11 @@ namespace AppStore.Controllers
             _cusBL = cus;
         }
         //GET: Login
-        public IActionResult Login()
+        public IActionResult Login() 
         {
+           
+            
+         //  ISession["Message"] = "Hello MVC!";
             return View();
         }
         //GET: CartDetail
@@ -93,10 +107,33 @@ namespace AppStore.Controllers
                     ViewData["er"] = "Please sign up!!";
                     return View();
                 }
+                else
+                {
+                    // Requires: using Microsoft.AspNetCore.Http;
+                    if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
+                    {
+                        HttpContext.Session.SetString(SessionKeyName, cus.FirstName);
+                        HttpContext.Session.SetString(SessionKeyLast, cus.LastName);
+                        HttpContext.Session.SetInt32(CustomerId, cus.CustomerId);
+                
+                    }
+
+                    var name = HttpContext.Session.GetString(SessionKeyName);
+                    var last = HttpContext.Session.GetString(SessionKeyLast);
+                    var Id = HttpContext.Session.GetInt32(CustomerId);
+                    //HttpContext.Session.Clear();
+                    string fistName = name;
+                    
+                    System.Diagnostics.Debug.WriteLine("session===>     " + fistName);
+                    //ViewBag["FirstName"] = fistName;
+                    ViewData.Add("FirstName", fistName);
+                    ViewData["Id"] = Id;
+
+                }
 
             }
-            
-            Session = "Jim";
+
+            ViewData["er"] = "Please sign up!!";
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
@@ -105,10 +142,22 @@ namespace AppStore.Controllers
         {
             if (ModelState.IsValid)
             {
+                var name = HttpContext.Session.GetString(SessionKeyName);
+                var last = HttpContext.Session.GetString(SessionKeyLast);
+                var Id = HttpContext.Session.GetInt32(CustomerId);
+                //HttpContext.Session.Clear();
+                System.Diagnostics.Debug.WriteLine("session===>     " + name );
+                ViewData["FisrtName"] = name;
+                ViewData["Id"] = Id;
+
                 await _cusBL.SignUP(customer);
                 return RedirectToAction(nameof(Index));
+               
 
             }
+           // var name = HttpContext.Session.GetString(SessionKeyName);
+            //var age = HttpContext.Session.GetInt32(SessionKeyAge);
+            //System.Diagnostics.Debug.WriteLine("session===>     " + name);
             /*
             if (ModelState.IsValid)
             {

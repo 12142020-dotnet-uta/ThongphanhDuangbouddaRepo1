@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ModelLayer.Models;
 using RepositoryLayer;
+using Microsoft.AspNetCore.Http;
 
 namespace AppStore.Controllers
 {
@@ -22,6 +23,10 @@ namespace AppStore.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
+           // var name = HttpContext.Session.GetString(SessionKeyName);
+            //var age = HttpContext.Session.GetInt32(SessionKeyAge);
+           // System.Diagnostics.Debug.WriteLine("session===>     " + name);
+
             var appStoreContext = _context.Products.Include(p => p.store);
             return View(await appStoreContext.ToListAsync());
         }
