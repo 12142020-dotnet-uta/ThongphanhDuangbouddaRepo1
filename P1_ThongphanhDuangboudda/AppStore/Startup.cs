@@ -36,6 +36,16 @@ namespace AppStore
             services.AddScoped<CustomerBL>();
             services.AddScoped<CustomerRPTL>();
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(3000);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+
             /*
             services.AddDbContext<AppStoreContext>(options =>
            options.UseSqlServer(@"Server=localhost\\SQLEXPRESS;Database=TrollStore_DB1;Trusted_Connection = True"));
@@ -61,6 +71,7 @@ namespace AppStore
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

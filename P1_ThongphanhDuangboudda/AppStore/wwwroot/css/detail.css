@@ -1,7 +1,9 @@
 
 
 .text-center {
+   
     background-image: url("trollHunter.jpg");
+
     color: white;
     font-weight: bolder;
     height: 200px;

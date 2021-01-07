@@ -16,6 +16,8 @@ namespace AppStore.Controllers
         private readonly AppStoreContext _context;
         private readonly CustomerBL _cusBL;
 
+        public object Session { get; private set; }
+
         public CustomersController(AppStoreContext context, CustomerBL cus)
         {
             _context = context;
@@ -31,39 +33,20 @@ namespace AppStore.Controllers
         {
             return View(await _context.Carts.ToListAsync());
         }
-        //POST: Login
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Login(string firstName, string lastName)
+
+        // GET: Customers
+        public IActionResult SignUP()
         {
-            Customer cus = new()
-            {
-                FirstName = firstName,
-                LastName = lastName
-            };
-            if (ModelState.IsValid)
-            {
-                System.Diagnostics.Debug.WriteLine(" log in Post called" + firstName + " and : " + lastName);
-
-                //check if the customer is exist in database
-                cus = _cusBL.IsExistingCustomer(cus);
-                if(cus == null)
-                {
-                    ViewData["er"] = "Please sign up!!";
-                    return View();
-                }
-
-            }
-           
             return View();
         }
 
-
-        // GET: Customers
-
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Customer cus = null)
         {
             return View(await _context.Customers.ToListAsync());
+            /*
+           var products =  await _context.Products.ToListAsync();
+            return View(products);
+            */
         }
 
         // GET: Customers/Details/5
@@ -89,6 +72,55 @@ namespace AppStore.Controllers
         {
             return View();
         }
+        //POST: Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login([Bind("CustomerId, FirstName, LastName")]Customer customer)
+        {
+            Customer cus = new()
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName
+            };
+            if (ModelState.IsValid)
+            {
+                System.Diagnostics.Debug.WriteLine(" log in Post called" + customer.FirstName + " and : " + customer.LastName  + "ID: " + customer.CustomerId);
+
+                //check if the customer is exist in database
+                cus = _cusBL.IsExistingCustomer(cus);
+                if (cus == null)
+                {
+                    ViewData["er"] = "Please sign up!!";
+                    return View();
+                }
+
+            }
+            
+            Session = "Jim";
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task< IActionResult > SignUP([Bind("CustomerId,FirstName,LastName")] Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                await _cusBL.SignUP(customer);
+                return RedirectToAction(nameof(Index));
+
+            }
+            /*
+            if (ModelState.IsValid)
+            {
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            */
+            return View(customer);
+        }
+
+
 
         // POST: Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

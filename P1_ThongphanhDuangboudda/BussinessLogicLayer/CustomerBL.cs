@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using ModelLayer.Models;
 using RepositoryLayer;
 
@@ -26,6 +27,20 @@ namespace BussinessLogicLayer
                 return null;
             }  
        
+        }
+        public async Task<Customer> SignUP(Customer cus)
+        {
+            Customer existing = _cusRPTL.IsExistingCustomer(cus);
+            if (existing == null)
+            {
+                cus = await _cusRPTL.SignUP(cus);
+                return cus;
+            }
+            else
+            {
+                return existing;
+            }
+            
         }
     }
 }

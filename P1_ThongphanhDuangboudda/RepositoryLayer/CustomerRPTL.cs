@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using ModelLayer.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,29 @@ namespace RepositoryLayer
 
             return customer;         
               
+        }
+
+        public async Task<Customer> SignUP(Customer cus)
+        {
+            Customer customer = new Customer();
+            customer.FirstName = cus.FirstName;
+            customer.LastName = cus.LastName;
+
+
+            _conText.Add(customer);
+            await _conText.SaveChangesAsync();
+            
+            /*
+          if (ModelState.IsValid)
+          {
+              _context.Add(customer);
+              await _context.SaveChangesAsync();
+              return RedirectToAction(nameof(Index));
+          }
+          */
+
+            return cus;
+
         }
 
     }
