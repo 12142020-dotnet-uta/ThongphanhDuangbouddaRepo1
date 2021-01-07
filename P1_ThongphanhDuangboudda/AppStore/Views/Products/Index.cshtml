@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<ModelLayer.Models.Product>
-@using Microsoft.AspNetCore.Http; 
+@using Microsoft.AspNetCore.Http;
 
 @{
     ViewData["Title"] = "Index";
@@ -13,6 +13,18 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+@foreach (var item in Model)
+{    
+    <a class="productLink" asp-controller="Home" asp- action="Index"> 
+        <div class="producColumn">
+         
+            <img class="image" src="@item.ImageString" style="width: 80%;  height: 200px; " />
+            <p> Price: $$99000</p>
+        </div>
+    
+    </a>
+    
+}
 <table class="table">
     <thead>
         <tr>
@@ -34,42 +46,39 @@
             <th>
                 @Html.DisplayNameFor(model => model.store)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageData)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.store.StoreId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageData)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.store.StoreId)
+                </td>
+               
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

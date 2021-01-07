@@ -31,6 +31,36 @@ namespace BussinessLogicLayer
            // return (await _productRepo.GetProducts(storeId));
 
         }
+        public List<Product> GetProductsSync(int storeId = 0)
+        {
+            List<Product> products =  _productRepo.GetProductsSync(storeId);
+
+            //var tasks = new List<Task> { List<Product> };
+            // Task finish = await Task.Run();
+
+            products = ConvertImageFile_SaveUrlSync(products);
+            return products;
+            // return (await _productRepo.GetProducts(storeId));
+
+        }
+        /// <summary>
+        /// This Method retun a list of products with image Url
+        /// </summary>
+        /// <param name="products"></param>
+        public static List<Product> ConvertImageFile_SaveUrlSync(List<Product> products)
+        {
+            foreach (var product in products)
+            {
+                if(product.ImageData != null)
+                {
+                    string imagDataBase64Daba = Convert.ToBase64String(product.ImageData);
+                    product.ImageString = string.Format("data:image/jpg; base64,{0}", imagDataBase64Daba);
+
+                }
+               
+            }
+            return (products);
+        }
         /// <summary>
         /// This Method retun a list of products with image Url
         /// </summary>
@@ -39,11 +69,16 @@ namespace BussinessLogicLayer
         {
             foreach(var product in products)
             {
-                string imagDataBase64Daba = Convert.ToBase64String(product.ImageData);
-                product.ImageString = string.Format("data:image/jpg; base64,{0}", imagDataBase64Daba);
+                System.Diagnostics.Debug.WriteLine("size image data" + product.ImageData.Length);
+
+                if(product.ImageData != null)
+                {
+                    string imagDataBase64Daba = Convert.ToBase64String(product.ImageData);
+                    product.ImageString = string.Format("data:image/jpg; base64,{0}", imagDataBase64Daba);
+                }
+                
             }
             return (products);
-
         }
     }
 }

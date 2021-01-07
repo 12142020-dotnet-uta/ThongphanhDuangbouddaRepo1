@@ -32,7 +32,8 @@ namespace AppStore.Controllers
            // System.Diagnostics.Debug.WriteLine("session===>     " + name);
 
           //  var appStoreContext = _context.Products.Include(p => p.store);
-            return View(await _productBL.GetProducts(1));
+           // return View(await _productBL.GetProducts(1));
+            return View(_productBL.GetProductsSync(1));
         }
 
         // GET: Products/Details/5
