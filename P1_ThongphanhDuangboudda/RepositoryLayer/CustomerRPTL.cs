@@ -28,6 +28,10 @@ namespace RepositoryLayer
 
             return customer;
         }
+        /// <summary>
+        /// This Method retun matching customers if matched; otherwise, return null value.
+        /// </summary>
+        /// <param name="cus"></param>
         public Customer IsExistingCustomer(Customer cus)
         {
             var customer = _conText.Customers
@@ -38,7 +42,10 @@ namespace RepositoryLayer
             return customer;         
               
         }
-
+        /// <summary>
+        /// This method saves customer information on database
+        /// </summary>
+        /// <param name="cus"></param>
         public async Task<Customer> SignUP(Customer cus)
         {
             Customer customer = new Customer();
@@ -49,14 +56,6 @@ namespace RepositoryLayer
             _conText.Add(customer);
             await _conText.SaveChangesAsync();
             
-            /*
-          if (ModelState.IsValid)
-          {
-              _context.Add(customer);
-              await _context.SaveChangesAsync();
-              return RedirectToAction(nameof(Index));
-          }
-          */
 
             return cus;
 

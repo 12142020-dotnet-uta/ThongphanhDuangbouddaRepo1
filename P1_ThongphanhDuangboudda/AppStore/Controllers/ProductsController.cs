@@ -8,16 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using ModelLayer.Models;
 using RepositoryLayer;
 using Microsoft.AspNetCore.Http;
+using System.IO;
+using BussinessLogicLayer;
 
 namespace AppStore.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly AppStoreContext _context;
+        private readonly ProductBL _productBL;
 
-        public ProductsController(AppStoreContext context)
+        public ProductsController(AppStoreContext context, ProductBL productBL)
         {
             _context = context;
+            _productBL = productBL;
         }
 
         // GET: Products
@@ -27,8 +31,8 @@ namespace AppStore.Controllers
             //var age = HttpContext.Session.GetInt32(SessionKeyAge);
            // System.Diagnostics.Debug.WriteLine("session===>     " + name);
 
-            var appStoreContext = _context.Products.Include(p => p.store);
-            return View(await appStoreContext.ToListAsync());
+          //  var appStoreContext = _context.Products.Include(p => p.store);
+            return View(await _productBL.GetProducts(1));
         }
 
         // GET: Products/Details/5
@@ -107,6 +111,15 @@ namespace AppStore.Controllers
             {
                 try
                 {
+                    foreach(var file in Request.Form.Files)
+                    {
+                        MemoryStream ms = new MemoryStream();
+                        file.CopyTo(ms);
+                        product.ImageData = ms.ToArray();
+                        ms.Close();
+                        ms.Dispose();
+                    }
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }

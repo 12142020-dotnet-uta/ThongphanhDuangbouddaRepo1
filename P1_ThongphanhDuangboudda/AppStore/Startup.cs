@@ -35,6 +35,8 @@ namespace AppStore
             services.AddTransient<AppStoreContext>();
             services.AddScoped<CustomerBL>();
             services.AddScoped<CustomerRPTL>();
+            services.AddScoped<ProductBL>();
+            services.AddScoped<ProductRPTL>();
 
             services.AddDistributedMemoryCache();
 
@@ -46,12 +48,7 @@ namespace AppStore
             });
 
             services.AddHttpContextAccessor();
-           // services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
-            /*
-            services.AddDbContext<AppStoreContext>(options =>
-           options.UseSqlServer(@"Server=localhost\\SQLEXPRESS;Database=TrollStore_DB1;Trusted_Connection = True"));
-            */
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -26,6 +26,7 @@ namespace ModelLayer.Models
         public int StoreId { get; set; }
         public Store store { get; set; }
         public byte[] ImageData { get; set; }
+        public string ImageString { get; set; }
 
     }
 }
