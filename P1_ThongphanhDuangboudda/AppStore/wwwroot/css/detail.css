@@ -24,9 +24,18 @@
 .productLink{
     
     display: inline-block;
-    
     width: 20%;
     height: auto;
     background-repeat: no-repeat;
     background-size: auto;
+}
+.detail{
+    width: 40%;
+    float: left;
+}
+.detailImage{
+    width: 30%;
+    height: 400px;
+    float: right;
+    background-color: aquamarine;
 }

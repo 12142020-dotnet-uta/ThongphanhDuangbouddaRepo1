@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ModelLayer.Models;
 using RepositoryLayer;
+using BussinessLogicLayer;
 
 namespace AppStore.Controllers
 {
     public class StoresController : Controller
     {
         private readonly AppStoreContext _context;
+        private readonly ProductBL _productBL;
 
-        public StoresController(AppStoreContext context)
+        public StoresController(AppStoreContext context, ProductBL product)
         {
             _context = context;
+            _productBL = product;
         }
 
         // GET: Stores
@@ -41,14 +44,24 @@ namespace AppStore.Controllers
             }
             else
             {
-                string url = string.Format($"/Products/delete/{id}");
+                /*
+                var products = _context.Products
+                                .Where(x => x.StoreId == id)
+                                 .AsNoTracking()
+                                 .ToList();
+                  */
+                int num = (int)id;
+               // int i = view.getId();
+                System.Diagnostics.Debug.WriteLine("Specific store is called " + id);
+                // var products = _productBL.GetProductsSync(1);
+                // string url = string.Format($"/Products/Store1/{id}");
+                var products = _productBL.GetProductsSyncByStoreId(num);
+             
+                return View(products);
 
-                 return Redirect(url);
-               //ViewData["storeID"] = id;
-               //return RedirectToAction("Index", "Products");
             }
 
-            return View(store);
+            // return View(store);
         }
 
         // GET: Stores/Create

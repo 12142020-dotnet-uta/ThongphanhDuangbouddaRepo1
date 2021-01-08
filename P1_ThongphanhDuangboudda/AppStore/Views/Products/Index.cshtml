@@ -27,10 +27,18 @@
             <select onchange="myFunction()" class="form-control" asp-items="ViewBag.StoreId"></select>
         </div>
         <div class="form-group">
-            <input type="submit" value="Select Different Stores" class="btn btn-primary" />
+            <input type="submit" value="Select Different" class="btn btn-primary" />
         </div>
     </form>
 </p>
+
+
+
+
+
+
+
+
 
 
 
@@ -40,7 +48,7 @@
         <div class="producColumn">
 
             <img class="image" src="@item.ImageString" style="width: 80%;  height: 200px; " />
-            <p> Price: $$99000</p>
+            <p> Price: @item.Price</p>
         </div>
 
     </a>

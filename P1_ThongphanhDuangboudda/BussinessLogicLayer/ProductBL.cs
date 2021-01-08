@@ -22,7 +22,7 @@ namespace BussinessLogicLayer
         public async Task<List<Product>> GetProducts(int storeId = 0)
         {
             List<Product> products = await _productRepo.GetProducts(storeId);
-
+            
             //var tasks = new List<Task> { List<Product> };
            // Task finish = await Task.Run();
             
@@ -34,6 +34,18 @@ namespace BussinessLogicLayer
         public List<Product> GetProductsSync(int storeId = 0)
         {
             List<Product> products =  _productRepo.GetProductsSync(storeId);
+
+            //var tasks = new List<Task> { List<Product> };
+            // Task finish = await Task.Run();
+
+            products = ConvertImageFile_SaveUrlSync(products);
+            return products;
+            // return (await _productRepo.GetProducts(storeId));
+
+        }
+        public List<Product> GetProductsSyncByStoreId(int storeId)
+        {
+            List<Product> products = _productRepo.GetProductsSyncByStoreId(storeId);
 
             //var tasks = new List<Task> { List<Product> };
             // Task finish = await Task.Run();

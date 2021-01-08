@@ -100,19 +100,25 @@ namespace AppStore.Controllers
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", product.StoreId);
             return View(product);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Store1(int storeId)
+        //store
+        public async Task<IActionResult> Store1(int? id)
         {
-            if (ModelState.IsValid)
+            System.Diagnostics.Debug.WriteLine("got store id :   " + id);
+     
+            if (id == null)
             {
-               //// _context.Add(product);
-//              await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", product.StoreId);
-            return View(_productBL.GetProductsSync(storeId));
+
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", product.StoreId);
+            return View(product);
         }
+
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -211,5 +217,41 @@ namespace AppStore.Controllers
         {
             return _context.Products.Any(e => e.ProductID == id);
         }
+        // GET: Products/Details/5
+        public async Task<IActionResult> Checout(int? id, int aId)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.store)
+                .FirstOrDefaultAsync(m => m.ProductID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+        public async Task<IActionResult> Add(int? id, int aId)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.store)
+                .FirstOrDefaultAsync(m => m.ProductID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
     }
 }
