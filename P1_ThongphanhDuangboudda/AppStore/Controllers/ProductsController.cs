@@ -10,6 +10,7 @@ using RepositoryLayer;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using BussinessLogicLayer;
+using System.ComponentModel.DataAnnotations;
 
 namespace AppStore.Controllers
 {
@@ -25,19 +26,40 @@ namespace AppStore.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        [HttpPost]
+        public async Task<IActionResult> IndexSelectStore(int? id)
         {
-           // var name = HttpContext.Session.GetString(SessionKeyName);
-            //var age = HttpContext.Session.GetInt32(SessionKeyAge);
-           // System.Diagnostics.Debug.WriteLine("session===>     " + name);
 
-          //  var appStoreContext = _context.Products.Include(p => p.store);
-           // return View(await _productBL.GetProducts(1));
+
+           // var selectedValue = Request.Form["storeId"].ToString(); //this will get selected
+            System.Diagnostics.Debug.WriteLine("Store Id =========>Called " );
+            /*
+            if (storId > 0)
+            {
+                System.Diagnostics.Debug.WriteLine("Store Id =========> " + storId);
+            }
+            */
+            ViewData["StoreId"] = new SelectList( _context.Stores, "StoreId", "StoreId");
+
+            return View( _productBL.GetProductsSync(1));
+        }
+        public async Task<IActionResult> Index(int storId)
+        {
+            System.Diagnostics.Debug.WriteLine("Store Id ========= bbbb> " + ViewData["storeId"]);
+            System.Diagnostics.Debug.WriteLine("Store Id Xxxxxx ========= bbbb> " + storId);
+
+            //var selectedValue = Request.Form["storeId"].ToString(); //this will get selected
+            //System.Diagnostics.Debug.WriteLine("Store Id =========> " + selectedValue);
+            if (storId > 0)
+            {
+                System.Diagnostics.Debug.WriteLine("Store Id i=optional =========> " + storId);
+            }
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             return View(_productBL.GetProductsSync(1));
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int aId)
         {
             if (id == null)
             {
@@ -77,6 +99,19 @@ namespace AppStore.Controllers
             }
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", product.StoreId);
             return View(product);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Store1(int storeId)
+        {
+            if (ModelState.IsValid)
+            {
+               //// _context.Add(product);
+//              await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
+            }
+           // ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", product.StoreId);
+            return View(_productBL.GetProductsSync(storeId));
         }
 
         // GET: Products/Edit/5
@@ -144,6 +179,7 @@ namespace AppStore.Controllers
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            System.Diagnostics.Debug.WriteLine("delete id is : " + id);
             if (id == null)
             {
                 return NotFound();

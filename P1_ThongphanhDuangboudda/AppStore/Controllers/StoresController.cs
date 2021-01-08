@@ -39,6 +39,14 @@ namespace AppStore.Controllers
             {
                 return NotFound();
             }
+            else
+            {
+                string url = string.Format($"/Products/delete/{id}");
+
+                 return Redirect(url);
+               //ViewData["storeID"] = id;
+               //return RedirectToAction("Index", "Products");
+            }
 
             return View(store);
         }

@@ -34,33 +34,41 @@ namespace AppStore.Controllers
             _context = context;
             _cusBL = cus;
         }
-        //GET: Login
+        /// <summary>
+        /// This Method retun login view
+        /// </summary>
+        /// <param name=""></param>
         public IActionResult Login() 
         {
-           
-            
-         //  ISession["Message"] = "Hello MVC!";
+             
             return View();
         }
-        //GET: CartDetail
+        /// <summary>
+        /// This Method retun list of products in the  cart
+        /// </summary>
+        /// <param name=""></param>
         public async Task<IActionResult> CartDetail()
         {
             return View(await _context.Carts.ToListAsync());
         }
 
-        // GET: Customers
+        /// <summary>
+        /// This Method retun sign up view
+        /// </summary>
+        /// <param name="storeId"></param>
         public IActionResult SignUP()
         {
             return View();
         }
 
+        /// <summary>
+        /// This Method retun view with list of product
+        /// </summary>
+        /// <param name="cus"></param>
         public async Task<IActionResult> Index(Customer cus = null)
         {
             return View(await _context.Customers.ToListAsync());
-            /*
-           var products =  await _context.Products.ToListAsync();
-            return View(products);
-            */
+        
         }
 
         // GET: Customers/Details/5
@@ -86,7 +94,10 @@ namespace AppStore.Controllers
         {
             return View();
         }
-        //POST: Login
+        /// <summary>
+        /// This Method check if a customer match on data base, then login if match.
+        /// </summary>
+        /// <param name="customer"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login([Bind("CustomerId, FirstName, LastName")]Customer customer)
@@ -136,6 +147,10 @@ namespace AppStore.Controllers
             ViewData["er"] = "Please sign up!!";
             return RedirectToAction(nameof(Index));
         }
+        /// <summary>
+        /// This Method add customer to database and login customer in
+        /// </summary>
+        /// <param name="storeId"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task< IActionResult > SignUP([Bind("CustomerId,FirstName,LastName")] Customer customer)
@@ -151,25 +166,20 @@ namespace AppStore.Controllers
                 ViewData["Id"] = Id;
 
                 await _cusBL.SignUP(customer);
-                return RedirectToAction(nameof(Index));
-               
-
+                return RedirectToAction(nameof(Index));          
             }
-           // var name = HttpContext.Session.GetString(SessionKeyName);
-            //var age = HttpContext.Session.GetInt32(SessionKeyAge);
-            //System.Diagnostics.Debug.WriteLine("session===>     " + name);
-            /*
-            if (ModelState.IsValid)
-            {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            */
+          
             return View(customer);
         }
 
-
+        /// <summary>
+        /// This Method add product to cart
+        /// </summary>
+        /// <param name="storeId"></param>
+        public IActionResult AddOrder()
+        {
+            return View();
+        }
 
         // POST: Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.

@@ -33,7 +33,7 @@ namespace AppStore
             services.AddDbContext<AppStoreContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AppStoreContext")));
             services.AddTransient<AppStoreContext>();
-            services.AddScoped<CustomerBL>();
+            services.AddScoped<ICustomer, CustomerBL>();
             services.AddScoped<CustomerRPTL>();
             services.AddScoped<ProductBL>();
             services.AddScoped<ProductRPTL>();

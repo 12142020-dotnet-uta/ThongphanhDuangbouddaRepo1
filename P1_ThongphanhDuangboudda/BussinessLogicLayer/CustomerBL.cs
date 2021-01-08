@@ -7,7 +7,7 @@ using RepositoryLayer;
 
 namespace BussinessLogicLayer
 {
-    public class CustomerBL
+    public class CustomerBL : ICustomer
     {
         private readonly CustomerRPTL _cusRPTL;
         public CustomerBL(CustomerRPTL repositoryLayer)
@@ -15,6 +15,10 @@ namespace BussinessLogicLayer
             _cusRPTL = repositoryLayer;
 
         }
+        /// <summary>
+        /// This Method retun and existing customer if found; otherwise return null
+        /// </summary>
+        /// <param name="cus"></param>
         public Customer IsExistingCustomer(Customer cus)
         {
             Customer customer = _cusRPTL.IsExistingCustomer(cus);
@@ -28,6 +32,10 @@ namespace BussinessLogicLayer
             }  
        
         }
+        /// <summary>
+        /// This Method retun a customer
+        /// </summary>
+        /// <param name="cus"></param>
         public async Task<Customer> SignUP(Customer cus)
         {
             Customer existing = _cusRPTL.IsExistingCustomer(cus);
@@ -41,6 +49,14 @@ namespace BussinessLogicLayer
                 return existing;
             }
             
+        }
+        /// <summary>
+        /// This Method retun a list of product base on storeId
+        /// </summary>
+        /// <param name="storeId"></param>
+        public void AddOrder(int customerId, int storeId, Product prduct)
+        {
+
         }
     }
 }
