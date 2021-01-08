@@ -7,7 +7,7 @@ using RepositoryLayer;
 
 namespace BussinessLogicLayer
 {
-    public class CustomerBL : ICustomer
+    public class CustomerBL
     {
         private readonly CustomerRPTL _cusRPTL;
         public CustomerBL(CustomerRPTL repositoryLayer)

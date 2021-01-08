@@ -92,5 +92,12 @@ namespace BussinessLogicLayer
             }
             return (products);
         }
+
+        //add order cart
+        public void AddOrder(int customerId, int storeId, Product products)
+        {
+
+
+        }
     }
 }
