@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ModelLayer.Models;
 using RepositoryLayer;
+using System.Linq;
 
 namespace BussinessLogicLayer
 {
@@ -92,6 +93,51 @@ namespace BussinessLogicLayer
             }
             return (products);
         }
+
+        /*
+* PURPOSE : Check product availability
+*
+* RETURN : True or false
+*
+*F*/
+        public bool CheckProductAvailabilty(int productId, int quantity)
+        {
+            bool available = false;
+            int availableQuantit = 0;
+            using (var db = new AppStoreContext())
+            {
+                var product = _productRepo.GetProductById(productId);
+                availableQuantit = product.Quantity;
+
+                try
+                {
+                    if (product.Quantity - quantity < 0)
+                    {
+
+                        throw new ArithmeticException("Access denied - You must enter fewer quantity");
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Somthings wrong: " + e);
+                }
+                if (product.Quantity - quantity >= 0)
+                {
+
+                    //TODO: In future update database product if customer add product to cart
+                    //product.Quantity = product.Quantity - quantity;
+                    available = true;
+                }
+            }
+            Console.WriteLine("enter quantity " + quantity + " available " + availableQuantit);
+
+            //add product to cart 
+            _productRepo.AddToCart(productId, quantity);
+            return available;
+
+        }
+        
 
         //add order cart
         public void AddOrder(int customerId, int storeId, Product products)

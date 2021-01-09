@@ -144,6 +144,8 @@ namespace AppStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductID,ProductName,ProductDescription,Category,Price,Quantity,StoreId,ImageData")] Product product)
         {
+
+            
             if (id != product.ProductID)
             {
                 return NotFound();
@@ -235,12 +237,25 @@ namespace AppStore.Controllers
 
             return View(product);
         }
-        public async Task<IActionResult> Add(int? id, int aId)
+        public async Task<IActionResult> Add(int? id, int quantity)
         {
+            int storeId = (int)id;
+            System.Diagnostics.Debug.WriteLine("add is called Quantity is ===> " + quantity);
+            bool notAvailable = true;
+            notAvailable = _productBL.CheckProductAvailabilty(storeId, quantity);
+            if (notAvailable)
+            {
+
+    
+               // ViewData["er"] = "Excess inventory!!, enter fewer items";
+               // return View();
+            }
+           
             if (id == null)
             {
                 return NotFound();
             }
+            
 
             var product = await _context.Products
                 .Include(p => p.store)
@@ -249,7 +264,8 @@ namespace AppStore.Controllers
             {
                 return NotFound();
             }
-
+            
+            
             return View(product);
         }
 
