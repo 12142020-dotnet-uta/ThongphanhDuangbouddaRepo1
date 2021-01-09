@@ -22,17 +22,20 @@ namespace AppStore.Controllers
     {
         private readonly AppStoreContext _context;
         private readonly CustomerBL _cusBL;
+        protected ProductBL _productRepo;
 
         // public object Session { get; private set; }
         public const string SessionKeyName = "_Name";
         public const string SessionKeyLast = "_Last";
         public const string  CustomerId = "_Id";
         const string SessionKeyTime = "_Time";
+        
 
-        public CustomersController(AppStoreContext context, CustomerBL cus)
+        public CustomersController(AppStoreContext context, CustomerBL cus, ProductBL product)
         {
             _context = context;
             _cusBL = cus;
+            _productRepo = product;
         }
         /// <summary>
         /// This Method retun login view
@@ -136,6 +139,7 @@ namespace AppStore.Controllers
                     string fistName = name;
                     
                     System.Diagnostics.Debug.WriteLine("session===>     " + fistName);
+                    System.Diagnostics.Debug.WriteLine("session===>     " + Id);
                     //ViewBag["FirstName"] = fistName;
                     ViewData.Add("FirstName", fistName);
                     ViewData["Id"] = Id;
@@ -145,7 +149,7 @@ namespace AppStore.Controllers
             }
 
             ViewData["er"] = "Please sign up!!";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Products");
         }
         /// <summary>
         /// This Method add customer to database and login customer in
@@ -280,6 +284,54 @@ namespace AppStore.Controllers
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.CustomerId == id);
+        }
+
+        public async Task<IActionResult> Add(int? id, int quantity)
+        {
+            int storeId = (int)id;
+            System.Diagnostics.Debug.WriteLine("Customer add is called Quantity is ===> " + quantity);
+            var customerId = HttpContext.Session.GetInt32(CustomerId);
+            System.Diagnostics.Debug.WriteLine("Customer iD  ===> " + id);
+            if(customerId == null)
+            {
+                ViewData["err"] = "Please Login";
+                ViewData["er"] = "Please sign up!!";
+                return RedirectToAction("Login", "Customers");
+            }
+            //int cutomerId = (int)Id;
+            
+            bool notAvailable = true;
+            notAvailable = _productRepo.CheckProductAvailabilty(storeId, quantity);
+            if (notAvailable)
+            {
+
+
+                // ViewData["er"] = "Excess inventory!!, enter fewer items";
+                // return View();
+            }
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            var product = await _context.Products
+                .Include(p => p.store)
+                .FirstOrDefaultAsync(m => m.ProductID == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(product);
+        }
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            //Session.Clear();
+            return RedirectToAction("Index", "Products");
         }
     }
 }

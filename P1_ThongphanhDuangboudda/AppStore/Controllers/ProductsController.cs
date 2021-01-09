@@ -59,12 +59,14 @@ namespace AppStore.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id, int aId)
+        public async Task<IActionResult> Details(int? id, int customerId)
         {
             if (id == null)
             {
                 return NotFound();
             }
+           // System.Diagnostics.Debug.WriteLine("CustomerId =========> " + customerId);
+            //var Id = HttpContext.Session.GetInt32(CustomerId);
 
             var product = await _context.Products
                 .Include(p => p.store)

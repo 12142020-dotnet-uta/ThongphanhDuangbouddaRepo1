@@ -39,3 +39,6 @@
     float: right;
     background-color: aquamarine;
 }
+#firstName{
+    display: none;
+}

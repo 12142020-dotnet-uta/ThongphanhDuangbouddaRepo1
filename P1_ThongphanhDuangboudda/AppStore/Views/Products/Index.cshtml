@@ -6,9 +6,22 @@
     ViewData["Title"] = "Index";
 }
 
+@using Microsoft.AspNetCore.Http;
+@{
+                @inject IHttpContextAccessor HttpContextAccessor
+                            var isFiltered = @HttpContextAccessor.HttpContext.Session.GetString("_Name"); }
 
 
-   
+<p id="firstName" style="display: none"> @isFiltered</p>
+<script>
+
+    var content = document.getElementById("firstName").textContent;
+    console.log("content is " + content);
+    document.getElementById("Login").innerHTML = content;
+
+</script>
+
+
 
 
 <div class="text-center">
@@ -21,7 +34,7 @@
     <a asp-action="Create">Create New</a>
     <form asp-controller="Stores" asp-action="Index" name="selectStore" asp-route-id="" method="post">
         <div class="form-group">
-  
+
 
             <label class="control-label">Select Store</label>
             <select onchange="myFunction()" class="form-control" asp-items="ViewBag.StoreId"></select>
@@ -44,7 +57,7 @@
 
 @foreach (var item in Model)
 {
-    <a class="productLink" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID">
+    <a class="productLink" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID" >
         <div class="producColumn">
 
             <img class="image" src="@item.ImageString" style="width: 80%;  height: 200px; " />
