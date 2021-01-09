@@ -1,15 +1,21 @@
-﻿@model ModelLayer.Models.Product
+﻿@model ModelLayer.Models.OrderHistory
 
 @{
-    ViewData["Title"] = "Added";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Add</h1>
+<h1>Details</h1>
 
 <div>
-    <h4>Product</h4>
+    <h4>OrderHistory</h4>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.customer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.customer.FirstName)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ProductName)
         </dt>
@@ -41,26 +47,20 @@
             @Html.DisplayFor(model => model.Quantity)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.store)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.store.StoreId)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageData)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageData)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageString)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageString)
-        </dd>
     </dl>
 </div>
 <div>
-   
-    <a asp-controller="Products" asp-action="Index">Back to shop</a>
+    <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

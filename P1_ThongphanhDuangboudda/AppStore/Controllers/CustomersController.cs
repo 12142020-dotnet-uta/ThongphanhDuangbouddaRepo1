@@ -41,9 +41,16 @@ namespace AppStore.Controllers
         /// This Method retun login view
         /// </summary>
         /// <param name=""></param>
-        public IActionResult Login() 
+        public IActionResult Login(int? id) 
         {
-             
+            System.Diagnostics.Debug.WriteLine("not login customer is call + viewdata :  " + ViewData["err"]);
+            if (id != null)
+            {
+                System.Diagnostics.Debug.WriteLine("not login customer is call");
+                ViewData["er"] = "Please login first!!";
+                return View();
+            }
+           // ViewData["er"] = "Please login first!!";
             return View();
         }
         /// <summary>
@@ -52,6 +59,14 @@ namespace AppStore.Controllers
         /// <param name=""></param>
         public async Task<IActionResult> CartDetail()
         {
+            var customerId = HttpContext.Session.GetInt32(CustomerId);
+
+            if (customerId == null)
+            {
+                ViewData["err"] = "Please Login";
+                ViewData["er"] = "Please sign up!!";
+                return RedirectToAction("Login", "Customers", new { id = 100 });
+            }
             return View(await _context.Carts.ToListAsync());
         }
 
@@ -148,7 +163,6 @@ namespace AppStore.Controllers
 
             }
 
-            ViewData["er"] = "Please sign up!!";
             return RedirectToAction("Index", "Products");
         }
         /// <summary>
@@ -285,18 +299,21 @@ namespace AppStore.Controllers
         {
             return _context.Customers.Any(e => e.CustomerId == id);
         }
-
+        /// <summary>
+        /// This Method retun a list of product base on storeId
+        /// </summary>
+        /// <param name="quantity"></param>
         public async Task<IActionResult> Add(int? id, int quantity)
         {
             int storeId = (int)id;
             System.Diagnostics.Debug.WriteLine("Customer add is called Quantity is ===> " + quantity);
             var customerId = HttpContext.Session.GetInt32(CustomerId);
-            System.Diagnostics.Debug.WriteLine("Customer iD  ===> " + id);
+           
             if(customerId == null)
             {
                 ViewData["err"] = "Please Login";
                 ViewData["er"] = "Please sign up!!";
-                return RedirectToAction("Login", "Customers");
+                return RedirectToAction("Login", "Customers", new { id = 100 });
             }
             //int cutomerId = (int)Id;
             
@@ -327,6 +344,62 @@ namespace AppStore.Controllers
 
             return View(product);
         }
+        /// <summary>
+        /// This Method retun a list of product base on storeId
+        /// </summary>
+        /// <param name="storeId"></param>
+        /// /
+        /*
+         *         public async Task<IActionResult> CartDetail()
+        {
+            var customerId = HttpContext.Session.GetInt32(CustomerId);
+
+            if (customerId == null)
+            {
+                ViewData["err"] = "Please Login";
+                ViewData["er"] = "Please sign up!!";
+                return RedirectToAction("Login", "Customers", new { id = 100 });
+            }
+            return View(await _context.Carts.ToListAsync());
+        }
+         */
+        public async Task<IActionResult> Checkout()
+        {
+            var customerId = HttpContext.Session.GetInt32(CustomerId);
+            
+
+            if (customerId == null)
+            {
+                ViewData["err"] = "Please Login";
+                ViewData["er"] = "Please sign up!!";
+                return RedirectToAction("Login", "Customers", new { id = 100 });
+            }
+            var items = await _context.Carts.Where(x => x.CustomerId == (int)customerId).ToListAsync();
+            //add items to orderHistory
+            foreach(var item in items)
+            {
+                _context.Add(new OrderHistory
+                {
+                    CustomerId = (int)customerId,
+                    ProductName = item.ProductName,
+                    ProductDescription = item.ProductDescription,
+                    Category = item.Category,
+                    Price = item.Price,
+                    Quantity = item.Quantity,
+                    StoreId = item.StoreId,
+                    OrderDate = DateTime.Now
+
+                });
+
+            }
+            await _context.SaveChangesAsync();
+            return View( await _context.OrderHistories.Where(x => x.CustomerId == (int)customerId).ToListAsync());
+        }
+
+        /// <summary>
+        /// Log user out 
+        /// </summary>
+        /// <param name="n/a"></param>
         public IActionResult LogOut()
         {
             HttpContext.Session.Clear();
