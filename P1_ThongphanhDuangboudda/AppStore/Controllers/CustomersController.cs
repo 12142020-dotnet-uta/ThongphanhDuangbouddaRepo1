@@ -188,8 +188,19 @@ namespace AppStore.Controllers
                 System.Diagnostics.Debug.WriteLine("session===>     " + name );
                 ViewData["FisrtName"] = name;
                 ViewData["Id"] = Id;
+                //check if the customer is exist in database
+                 customer = _cusBL.IsExistingCustomer(customer);
+                if(customer != null)
+                {
 
-                await _cusBL.SignUP(customer);
+                }
+                else
+                {
+                    //sign up customer
+                    await _cusBL.SignUP(customer);
+                }
+
+                
                 if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
                 {
                     HttpContext.Session.SetString(SessionKeyName, customer.FirstName);
