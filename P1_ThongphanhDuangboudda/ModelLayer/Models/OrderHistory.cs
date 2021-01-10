@@ -12,12 +12,14 @@ namespace ModelLayer.Models
     {
         //TODO
         [Key]
+        [Display(Name =("Order Id"))]
         public int OrderId { get; set; }
-
+        [Display(Name =("Customer Id"))]
         public int CustomerId { get; set; }
         public Customer customer { get; set; }
-
+        [Display(Name =("Product Name"))]
         public string ProductName { get; set; }
+        [Display(Name =("Product Description"))]
         public string ProductDescription { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
