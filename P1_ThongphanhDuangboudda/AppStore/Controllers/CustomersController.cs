@@ -343,7 +343,7 @@ namespace AppStore.Controllers
                 return NotFound();
             }
 
-
+            product.Quantity = quantity;
             return View(product);
         }
         /// <summary>

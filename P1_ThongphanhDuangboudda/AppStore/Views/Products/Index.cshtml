@@ -57,7 +57,7 @@
 
 @foreach (var item in Model)
 {
-    <a class="productLink" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID" style="margin-bottom: 8px; margin-left: 8px">
+    <a class="productLink" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID" style="margin-bottom: 8px; margin-left: 8px; width: 25%">
         <div class="producColumn">
 
             <img class="image" src="@item.ImageString" style="width: 80%;  height: 200px; padding-top: 5% " />
