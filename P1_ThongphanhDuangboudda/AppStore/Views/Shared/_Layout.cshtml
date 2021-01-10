@@ -50,13 +50,17 @@
             @using Microsoft.AspNetCore.Http;
             @{
                 @inject IHttpContextAccessor HttpContextAccessor
-
+                string customerName = "";
                 var isFiltered = @HttpContextAccessor.HttpContext.Session.GetString("_Name");
+                if(isFiltered != null)
+                {
+                   customerName = "Welcome " + (string)isFiltered;
+                }
 
             }
 
          
-            <p id="firstName" style="display: none"> @isFiltered</p>
+            <p id="firstName" style="display: none"> @customerName</p>
             <script>
 
                 var content = document.getElementById("firstName").textContent;
