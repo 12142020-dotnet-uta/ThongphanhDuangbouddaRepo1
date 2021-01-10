@@ -11,11 +11,8 @@ namespace BussinessLogicLayer
         //login
         public Customer Login(Customer cus) { return cus; }
         //add order cart
-        public void AddOrder(int customerId, int storeId, Product products)
-        {
-
-
-        }
+        public void AddOrder(int customerId, int storeId, Product products) { }
+       
         //Checkou out items
        // public void Checkout(int customerId,int storeId, Product prords) { }
         //View general order history

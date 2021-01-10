@@ -118,8 +118,14 @@ namespace AppStore.Controllers
         /// <param name="customer"></param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login([Bind("CustomerId, FirstName, LastName")]Customer customer)
+        public IActionResult Login(string button, [Bind("CustomerId, FirstName, LastName")]Customer customer)
         {
+            System.Diagnostics.Debug.WriteLine("Button Vaule:=======> " + button);
+            if (button == "Sign Up")
+            {
+                System.Diagnostics.Debug.WriteLine("SignUP");
+               return RedirectToAction(nameof(SignUP));
+            }
             Customer cus = new()
             {
                 FirstName = customer.FirstName,
@@ -184,7 +190,14 @@ namespace AppStore.Controllers
                 ViewData["Id"] = Id;
 
                 await _cusBL.SignUP(customer);
-                return RedirectToAction(nameof(Index));          
+                if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
+                {
+                    HttpContext.Session.SetString(SessionKeyName, customer.FirstName);
+                    HttpContext.Session.SetString(SessionKeyLast, customer.LastName);
+                    HttpContext.Session.SetInt32(CustomerId, customer.CustomerId);
+
+                }
+                return RedirectToAction("Index", "Products");          
             }
           
             return View(customer);

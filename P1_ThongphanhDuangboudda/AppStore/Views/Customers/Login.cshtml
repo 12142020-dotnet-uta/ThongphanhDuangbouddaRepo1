@@ -24,12 +24,15 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Sign Up" class="btn btn-primary" />
-                <input type="submit" value="Log in" class="btn btn-primary" />
+                
+                <input type="submit" name="button" value="Sign Up" class="btn btn-primary" />
+                <input type="submit" name="button" value="Log in" class="btn btn-primary" />
                 <p id="errorMessage">@ViewData["er"]</p>
                 <p id="errorMessage">@ViewData["err"]</p>
             </div>
         </form>
+        <div></div>
+        
     </div>
 </div>
 

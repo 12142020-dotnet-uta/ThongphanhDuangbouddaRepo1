@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using ModelLayer.Models;
 using RepositoryLayer;
 
+
 namespace BussinessLogicLayer
 {
-    public class CustomerBL
+    public class CustomerBL : ICustomer
     {
         private readonly CustomerRPTL _cusRPTL;
         public CustomerBL(CustomerRPTL repositoryLayer)
@@ -42,6 +44,7 @@ namespace BussinessLogicLayer
             if (existing == null)
             {
                 cus = await _cusRPTL.SignUP(cus);
+               
                 return cus;
             }
             else
@@ -53,10 +56,18 @@ namespace BussinessLogicLayer
         /// <summary>
         /// This Method retun a list of product base on storeId
         /// </summary>
-        /// <param name="storeId"></param>
+        /// <param name="customerId, storeId, product"></param>
         public void AddOrder(int customerId, int storeId, Product prduct)
         {
 
+        }
+        /// <summary>
+        /// This Method retun a list of product base on storeId
+        /// </summary>
+        /// <param name="cus"></param>
+        public Customer Login(Customer cus)
+        {
+            return cus;
         }
     }
 }
