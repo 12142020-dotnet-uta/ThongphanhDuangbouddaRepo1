@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +21,20 @@ namespace AppStore.Controllers
         }
 
         // GET: OrderHistories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var appStoreContext = _context.OrderHistories.Include(o => o.customer).Include(o => o.store);
+            // var cutomerId = HttpContext.Session.GetInt32("_Id");
+            var customerId = HttpContext.Session.GetInt32("_Id");
+
+            if (customerId == null)
+            {
+                ViewData["er"] = "Please sign in !!!";
+                return RedirectToAction("Login", "Customers", new { id = 1 });
+            }
+
+          
+            int Id = (int)customerId;
+            var appStoreContext = _context.OrderHistories.Where(x => x.CustomerId == Id);
             return View(await appStoreContext.ToListAsync());
         }
 

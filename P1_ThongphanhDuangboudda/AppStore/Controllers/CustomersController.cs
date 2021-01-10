@@ -67,7 +67,7 @@ namespace AppStore.Controllers
                 ViewData["er"] = "Please sign up!!";
                 return RedirectToAction("Login", "Customers", new { id = 100 });
             }
-            return View(await _context.Carts.ToListAsync());
+            return View(await _context.Carts.Where(x =>x.CustomerId == (int)customerId).ToListAsync());
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace AppStore.Controllers
             //int cutomerId = (int)Id;
             
             bool available = true;
-                 available = _productBL.CheckProductAvailabilty((int)customerId, productId, quantity);
+           available = _productBL.CheckProductAvailabilty((int)customerId, productId, quantity);
             if (!available)
             {
 
