@@ -59,12 +59,14 @@ namespace AppStore.Controllers
         }
 
         // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id, int customerId)
+        public async Task<IActionResult> Details(int? id, int quantity, bool reEnter)
         {
+            System.Diagnostics.Debug.WriteLine("Products details conteroller =========> " + id + " q:   " + quantity);
             if (id == null)
             {
                 return NotFound();
             }
+      
            // System.Diagnostics.Debug.WriteLine("CustomerId =========> " + customerId);
             //var Id = HttpContext.Session.GetInt32(CustomerId);
 
@@ -74,6 +76,12 @@ namespace AppStore.Controllers
             if (product == null)
             {
                 return NotFound();
+            }
+            if (reEnter)
+            {
+               
+                ViewData["er"] = "Please enter fewer items!!!";
+                return View(product);
             }
 
             return View(product);
@@ -242,9 +250,10 @@ namespace AppStore.Controllers
         public async Task<IActionResult> Add(int? id, int quantity)
         {
             int storeId = (int)id;
+            var Id = HttpContext.Session.GetInt32("_Id");
             System.Diagnostics.Debug.WriteLine("add is called Quantity is ===> " + quantity);
             bool notAvailable = true;
-            notAvailable = _productBL.CheckProductAvailabilty(storeId, quantity);
+            notAvailable = _productBL.CheckProductAvailabilty((int)Id, storeId, quantity);
             if (notAvailable)
             {
 

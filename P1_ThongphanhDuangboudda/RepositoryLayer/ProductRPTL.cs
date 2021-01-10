@@ -76,21 +76,25 @@ namespace RepositoryLayer
         /// This Method retun a list of product base on storeId
         /// </summary>
         /// <param name="storeId"></param>
-        public void AddToCart(int productId, int quantity)
+        public void AddToCart(int customerId, int productId, int quantity)
         {
             var product = _context.Products
                         .Where(x => x.ProductID == productId)
                         .FirstOrDefault();
             product.Quantity =  product.Quantity - quantity;
+            int storeId = product.StoreId;
                
 
 
             Cart cart = new Cart();
             cart.ProductID = productId;
-            cart.CustomerId = 1;
-            cart.StoreId = 4;
+            cart.StoreId = storeId;
             cart.Price = product.Price;
             cart.Quantity = quantity;
+            cart.CustomerId = customerId;
+            cart.ProductName = product.ProductName;
+            cart.ProductDescription = product.ProductDescription;
+            cart.Category = product.Category;
 
             _context.Add(cart);
             _context.SaveChanges();

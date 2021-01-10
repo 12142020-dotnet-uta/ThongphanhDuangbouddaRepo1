@@ -100,8 +100,9 @@ namespace BussinessLogicLayer
 * RETURN : True or false
 *
 *F*/
-        public bool CheckProductAvailabilty(int productId, int quantity)
+        public bool CheckProductAvailabilty(int customerId, int productId, int quantity)
         {
+            System.Diagnostics.Debug.WriteLine("check products");
             bool available = false;
             int availableQuantit = 0;
             using (var db = new AppStoreContext())
@@ -128,12 +129,13 @@ namespace BussinessLogicLayer
                     //TODO: In future update database product if customer add product to cart
                     //product.Quantity = product.Quantity - quantity;
                     available = true;
+                    _productRepo.AddToCart(customerId, productId, quantity);
                 }
             }
             Console.WriteLine("enter quantity " + quantity + " available " + availableQuantit);
 
             //add product to cart 
-            _productRepo.AddToCart(productId, quantity);
+           
             return available;
 
         }

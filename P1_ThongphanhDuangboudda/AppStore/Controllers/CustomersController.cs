@@ -22,7 +22,7 @@ namespace AppStore.Controllers
     {
         private readonly AppStoreContext _context;
         private readonly CustomerBL _cusBL;
-        protected ProductBL _productRepo;
+        protected ProductBL _productBL;
 
         // public object Session { get; private set; }
         public const string SessionKeyName = "_Name";
@@ -35,7 +35,7 @@ namespace AppStore.Controllers
         {
             _context = context;
             _cusBL = cus;
-            _productRepo = product;
+            _productBL = product;
         }
         /// <summary>
         /// This Method retun login view
@@ -305,7 +305,7 @@ namespace AppStore.Controllers
         /// <param name="quantity"></param>
         public async Task<IActionResult> Add(int? id, int quantity)
         {
-            int storeId = (int)id;
+            int productId = (int)id;
             System.Diagnostics.Debug.WriteLine("Customer add is called Quantity is ===> " + quantity);
             var customerId = HttpContext.Session.GetInt32(CustomerId);
            
@@ -317,12 +317,14 @@ namespace AppStore.Controllers
             }
             //int cutomerId = (int)Id;
             
-            bool notAvailable = true;
-            notAvailable = _productRepo.CheckProductAvailabilty(storeId, quantity);
-            if (notAvailable)
+            bool available = true;
+                 available = _productBL.CheckProductAvailabilty((int)customerId, productId, quantity);
+            if (!available)
             {
 
-
+                System.Diagnostics.Debug.WriteLine("NOT Availble");
+                ViewData["er"] = "Please enter fewer quantity!!";
+                return RedirectToAction("Details", "Products", new { id = productId, quantity = 0, reEnter = true});
                 // ViewData["er"] = "Excess inventory!!, enter fewer items";
                 // return View();
             }
@@ -377,7 +379,7 @@ namespace AppStore.Controllers
             var items = await _context.Carts.Where(x => x.CustomerId == (int)customerId).ToListAsync();
             //add items to orderHistory
             foreach(var item in items)
-            {
+            {  
                 _context.Add(new OrderHistory
                 {
                     CustomerId = (int)customerId,
@@ -390,9 +392,15 @@ namespace AppStore.Controllers
                     OrderDate = DateTime.Now
 
                 });
+                _context.Remove(item);
 
             }
+           
             await _context.SaveChangesAsync();
+           
+
+           // _context.Carts.RemoveRange(_context.Carts);
+           // _context.SaveChangesAsync();
             return View( await _context.OrderHistories.Where(x => x.CustomerId == (int)customerId).ToListAsync());
         }
 
