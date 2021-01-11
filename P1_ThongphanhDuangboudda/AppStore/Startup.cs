@@ -37,6 +37,8 @@ namespace AppStore
             services.AddScoped<CustomerRPTL>();
             services.AddScoped<ProductBL>();
             services.AddScoped<ProductRPTL>();
+            services.AddScoped<OrderHistoryBL>();
+            services.AddScoped<OrderHistoryRPTL>();
 
             services.AddDistributedMemoryCache();
 

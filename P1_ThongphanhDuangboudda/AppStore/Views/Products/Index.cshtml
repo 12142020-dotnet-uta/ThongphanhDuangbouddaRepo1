@@ -6,10 +6,10 @@
     ViewData["Title"] = "Index";
 }
 
-@using Microsoft.AspNetCore.Http;
 @{
-                @inject IHttpContextAccessor HttpContextAccessor
-                            var isFiltered = @HttpContextAccessor.HttpContext.Session.GetString("_Name"); }
+    @inject IHttpContextAccessor HttpContextAccessor
+    var isFiltered = @HttpContextAccessor.HttpContext.Session.GetString("_Name");
+}
 
 
 <p id="firstName" style="display: none"> @isFiltered</p>
@@ -32,32 +32,14 @@
 
 <p>
     <a asp-action="Create">Create New</a>
-    <form asp-controller="Stores" asp-action="Index" name="selectStore" asp-route-id="" method="post">
-        <div class="form-group">
-
-
-            <label class="control-label">Select Store</label>
-            <select onchange="myFunction()" class="form-control" asp-items="ViewBag.StoreId"></select>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Select Different" class="btn btn-primary" />
-        </div>
-    </form>
 </p>
-
-
-
-
-
-
-
 
 
 
 
 @foreach (var item in Model)
 {
-    <a class="productLink" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID" style="margin-bottom: 8px; margin-left: 8px; width: 25%">
+    <a class="productLink" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID" style="margin-bottom: 13px; margin-left: 13px; width: 18%">
         <div class="producColumn">
 
             <img class="image" src="@item.ImageString" style="width: 80%;  height: 200px; padding-top: 5% " />

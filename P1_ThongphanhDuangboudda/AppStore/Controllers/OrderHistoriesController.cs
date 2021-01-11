@@ -14,17 +14,30 @@ namespace AppStore.Controllers
     public class OrderHistoriesController : Controller
     {
         private readonly AppStoreContext _context;
+        private readonly OrderHistoryRPTL _orderHistory;
 
-        public OrderHistoriesController(AppStoreContext context)
+        public OrderHistoriesController(AppStoreContext context, OrderHistoryRPTL repo)
         {
             _context = context;
+            _orderHistory = repo;
         }
 
         // GET: OrderHistories
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(int? id, int storeId)
         {
-            // var cutomerId = HttpContext.Session.GetInt32("_Id");
             var customerId = HttpContext.Session.GetInt32("_Id");
+            int Id = 0;
+            if(customerId != null) {
+                Id = (int)customerId;
+            }
+
+            if(storeId > 0 && customerId != null)
+            {
+               // var appStoreContext0 = _context.OrderHistories.Where(x => x.CustomerId == Id && x.StoreId == storeId);
+                ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+                return View( _orderHistory.OrderHistoryByStore(Id, storeId));
+               
+            }
 
             if (customerId == null)
             {
@@ -32,9 +45,9 @@ namespace AppStore.Controllers
                 return RedirectToAction("Login", "Customers", new { id = 1 });
             }
 
-          
-            int Id = (int)customerId;
+            
             var appStoreContext = _context.OrderHistories.Where(x => x.CustomerId == Id);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             return View(await appStoreContext.ToListAsync());
         }
 
@@ -81,6 +94,7 @@ namespace AppStore.Controllers
             }
             ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "FirstName", orderHistory.CustomerId);
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId", orderHistory.StoreId);
+            //ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             return View(orderHistory);
         }
 
@@ -170,9 +184,45 @@ namespace AppStore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrderHistoryExists(int id)
+        private bool OrderHistoryExists(int? id)
         {
             return _context.OrderHistories.Any(e => e.OrderId == id);
         }
+        [HttpPost]
+        public async Task<IActionResult> StoreOrderHistory(IFormCollection collection)
+        {
+            System.Diagnostics.Debug.WriteLine("Store Id is :  " + collection["storeId"]);
+            int storeId = Int32.Parse(collection["storeId"]);
+            // System.Diagnostics.Debug.WriteLine("Store Id is :  " + );
+            if ( storeId > 0)
+            {
+                var  num = HttpContext.Session.GetInt32("_Id");
+                int id = (int)(num);
+                System.Diagnostics.Debug.WriteLine("storeId at Redirect   " + storeId);
+                return RedirectToAction("Index", new {num , storeId });
+            }
+            var customerId = HttpContext.Session.GetInt32("_Id");
+
+            if (customerId == null)
+            {
+                ViewData["er"] = "Please sign in !!!";
+                return RedirectToAction("Login", "Customers", new { id = 1 });
+            }
+
+            int Id = (int)customerId;
+            var appStoreContext = _context.OrderHistories.Where(x => x.CustomerId == Id);
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+            return View(await appStoreContext.ToListAsync());
+        }
+
+        // GET: OrderHistories
+        public IActionResult OrderBy(int? id)
+        {
+            var customerId = HttpContext.Session.GetInt32("_Id");
+            
+            return View(_orderHistory.OderBy((int)customerId, (int)id));
+        }
+
+
     }
 }

@@ -145,6 +145,9 @@ namespace AppStore.Controllers
                 else
                 {
                     // Requires: using Microsoft.AspNetCore.Http;
+                    HttpContext.Session.SetString(SessionKeyName, cus.FirstName);
+                    HttpContext.Session.SetString(SessionKeyLast, cus.LastName);
+                    HttpContext.Session.SetInt32(CustomerId, cus.CustomerId);
                     if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
                     {
                         HttpContext.Session.SetString(SessionKeyName, cus.FirstName);

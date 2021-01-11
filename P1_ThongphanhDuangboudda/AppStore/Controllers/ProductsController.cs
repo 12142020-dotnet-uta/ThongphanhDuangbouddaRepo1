@@ -30,29 +30,20 @@ namespace AppStore.Controllers
         public async Task<IActionResult> IndexSelectStore(int? id)
         {
 
-
-           // var selectedValue = Request.Form["storeId"].ToString(); //this will get selected
-            System.Diagnostics.Debug.WriteLine("Store Id =========>Called " );
-            /*
-            if (storId > 0)
-            {
-                System.Diagnostics.Debug.WriteLine("Store Id =========> " + storId);
-            }
-            */
             ViewData["StoreId"] = new SelectList( _context.Stores, "StoreId", "StoreId");
 
             return View( _productBL.GetProductsSync(1));
         }
         public async Task<IActionResult> Index(int storId)
         {
-            System.Diagnostics.Debug.WriteLine("Store Id ========= bbbb> " + ViewData["storeId"]);
-            System.Diagnostics.Debug.WriteLine("Store Id Xxxxxx ========= bbbb> " + storId);
+            //System.Diagnostics.Debug.WriteLine("Store Id ========= bbbb> " + ViewData["storeId"]);
+           // System.Diagnostics.Debug.WriteLine("Store Id Xxxxxx ========= bbbb> " + storId);
 
             //var selectedValue = Request.Form["storeId"].ToString(); //this will get selected
             //System.Diagnostics.Debug.WriteLine("Store Id =========> " + selectedValue);
             if (storId > 0)
             {
-                System.Diagnostics.Debug.WriteLine("Store Id i=optional =========> " + storId);
+               // System.Diagnostics.Debug.WriteLine("Store Id i=optional =========> " + storId);
             }
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             return View(_productBL.GetProductsSync(1));
