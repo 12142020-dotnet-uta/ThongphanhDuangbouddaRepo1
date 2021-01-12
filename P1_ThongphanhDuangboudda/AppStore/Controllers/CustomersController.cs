@@ -344,8 +344,9 @@ namespace AppStore.Controllers
                 ViewData["er"] = "Please sign up!!";
                 return RedirectToAction("Login", "Customers", new { id = 100 });
             }
-            //int cutomerId = (int)Id;
             
+
+            //Checkout product if cannot  add return false;
             bool available = true;
            available = _productBL.CheckProductAvailabilty((int)customerId, productId, quantity);
             if (!available)

@@ -100,6 +100,81 @@ namespace RepositoryLayer
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// This Method retun a list of product base on storeId
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// 
+         /*
+        * PURPOSE : Get order suggestion for customer
+        *
+        * RETURN : String of product information
+        *
+        *F*/
+        public List<Product> GetOrderSuggestions(int customerId)
+        {
+            var rand = new Random();
+            string str = "";
+            int electronic = 0;
+            int grocery = 0;
+            int clothing = 0;
+            List<Product> listOfProducts;
+           
+            //min inclued, max exclude
+            int number = rand.Next(0, 5);
+            using (var db = new AppStoreContext())
+            {
+                var orderHis = db.OrderHistories
+                    .Where(x => x.CustomerId == customerId)
+                    .AsNoTracking()
+                    .ToList();
+                foreach (var order in orderHis)
+                {
+                    if (order.Category == "Electronic")
+                    {
+                        electronic++;
+                    }
+                    else if (order.Category == "Clothing")
+                    {
+                        clothing++;
+                    }
+                    else if (order.Category == "Grocery")
+                    {
+                        grocery++;
+                    }
+                }
+
+                if (electronic > grocery)
+                {
+                    listOfProducts = db.Products
+                                .Where(p => p.Category == "Electronic")
+                                .AsNoTracking().ToList();
+
+                    return listOfProducts;
+                   
+                }
+                else if (clothing > grocery)
+                {
+                    listOfProducts = db.Products
+                                .Where(p => p.Category == "Clothing")
+                                .AsNoTracking().ToList();
+                                
+                }
+                else
+                {
+                    listOfProducts = db.Products
+                                .Where(p => p.Category == "Grocery")
+                                .AsNoTracking().ToList();
+                               
+                    return listOfProducts;
+
+                }
+                
+
+            }
+            return listOfProducts;
+
+        }
 
     }
 }

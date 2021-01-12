@@ -20,6 +20,7 @@ namespace BussinessLogicLayer
         public const string SessionKeyName = "_Name";
         public const string SessionKeyLast = "_Last";
         public const string CustomerId = "_Id";
+        public const string ProductQty = "_Qty";
         const string SessionKeyTime = "_Time";
         private IHttpContextAccessor _httpContextAccessor;
         

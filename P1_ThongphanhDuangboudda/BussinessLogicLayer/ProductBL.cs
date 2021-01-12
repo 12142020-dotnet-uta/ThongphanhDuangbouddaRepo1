@@ -147,5 +147,20 @@ namespace BussinessLogicLayer
 
 
         }
+        /// <summary>
+        /// This Method retun a list of product base on storeId
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// 
+        /*
+       * PURPOSE : Get order suggestion for customer
+       *
+       * RETURN : String of product information
+       *
+       *F*/
+        public List<Product> GetOrderSuggestions(int customerId)
+        {
+            return _productRepo.GetOrderSuggestions(customerId);
+        }
     }
 }
