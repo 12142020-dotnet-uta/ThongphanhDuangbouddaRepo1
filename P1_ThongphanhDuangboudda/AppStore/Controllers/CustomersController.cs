@@ -23,7 +23,7 @@ namespace AppStore.Controllers
         private readonly AppStoreContext _context;
         private readonly CustomerBL _cusBL;
         protected ProductBL _productBL;
-
+        
         // public object Session { get; private set; }
         public const string SessionKeyName = "_Name";
         public const string SessionKeyLast = "_Last";
@@ -120,7 +120,7 @@ namespace AppStore.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(string button, [Bind("CustomerId, FirstName, LastName")]Customer customer)
         {
-            System.Diagnostics.Debug.WriteLine("Button Vaule:=======> " + button);
+           
             if (button == "Sign Up")
             {
                 System.Diagnostics.Debug.WriteLine("SignUP");
@@ -133,7 +133,7 @@ namespace AppStore.Controllers
             };
             if (ModelState.IsValid)
             {
-                System.Diagnostics.Debug.WriteLine(" log in Post called" + customer.FirstName + " and : " + customer.LastName  + "ID: " + customer.CustomerId);
+               // System.Diagnostics.Debug.WriteLine(" log in Post called" + customer.FirstName + " and : " + customer.LastName  + "ID: " + customer.CustomerId);
 
                 //check if the customer is exist in database
                 cus = _cusBL.IsExistingCustomer(cus);
@@ -144,6 +144,9 @@ namespace AppStore.Controllers
                 }
                 else
                 {
+                    //set session
+                    _cusBL.SetSession(cus);
+                  /*
                     // Requires: using Microsoft.AspNetCore.Http;
                     HttpContext.Session.SetString(SessionKeyName, cus.FirstName);
                     HttpContext.Session.SetString(SessionKeyLast, cus.LastName);
@@ -155,18 +158,13 @@ namespace AppStore.Controllers
                         HttpContext.Session.SetInt32(CustomerId, cus.CustomerId);
                 
                     }
-
+                 
                     var name = HttpContext.Session.GetString(SessionKeyName);
                     var last = HttpContext.Session.GetString(SessionKeyLast);
                     var Id = HttpContext.Session.GetInt32(CustomerId);
                     //HttpContext.Session.Clear();
-                    string fistName = name;
-                    
-                    System.Diagnostics.Debug.WriteLine("session===>     " + fistName);
-                    System.Diagnostics.Debug.WriteLine("session===>     " + Id);
-                    //ViewBag["FirstName"] = fistName;
-                    ViewData.Add("FirstName", fistName);
-                    ViewData["Id"] = Id;
+                  */
+                 
 
                 }
 
@@ -182,33 +180,37 @@ namespace AppStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task< IActionResult > SignUP([Bind("CustomerId,FirstName,LastName")] Customer customer)
         {
+            System.Diagnostics.Debug.WriteLine("SignUp is called");
             if (ModelState.IsValid)
             {
                 var name = HttpContext.Session.GetString(SessionKeyName);
                 var last = HttpContext.Session.GetString(SessionKeyLast);
                 var Id = HttpContext.Session.GetInt32(CustomerId);
                 //HttpContext.Session.Clear();
-                System.Diagnostics.Debug.WriteLine("session===>     " + name );
-                ViewData["FisrtName"] = name;
-                ViewData["Id"] = Id;
+                //System.Diagnostics.Debug.WriteLine("session===>     " + name );
+                //ViewData["FisrtName"] = name;
+                //ViewData["Id"] = Id;
                 //check if the customer is exist in database
+                Customer check = customer;
+               
                  customer = _cusBL.IsExistingCustomer(customer);
-                if(customer != null)
+                System.Diagnostics.Debug.WriteLine("SignUp is called");
+                if (customer != null)
                 {
-
+                    // is existing customer do not things
                 }
                 else
                 {
+                    System.Diagnostics.Debug.WriteLine("SignUp is called ater Before signup");
                     //sign up customer
-                    await _cusBL.SignUP(customer);
+                    await _cusBL.SignUP(check);
+                    System.Diagnostics.Debug.WriteLine("SignUp is called ater signup");
                 }
 
                 
                 if (string.IsNullOrEmpty(HttpContext.Session.GetString(SessionKeyName)))
                 {
-                    HttpContext.Session.SetString(SessionKeyName, customer.FirstName);
-                    HttpContext.Session.SetString(SessionKeyLast, customer.LastName);
-                    HttpContext.Session.SetInt32(CustomerId, customer.CustomerId);
+                    _cusBL.SetSession(check);
 
                 }
                 return RedirectToAction("Index", "Products");          
