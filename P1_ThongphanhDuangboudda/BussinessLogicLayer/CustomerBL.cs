@@ -22,6 +22,9 @@ namespace BussinessLogicLayer
         public const string CustomerId = "_Id";
         const string SessionKeyTime = "_Time";
         private IHttpContextAccessor _httpContextAccessor;
+        
+
+        public CustomerBL() { }
       
         public CustomerBL(CustomerRPTL repositoryLayer, IHttpContextAccessor httpContextAccessor)
         {

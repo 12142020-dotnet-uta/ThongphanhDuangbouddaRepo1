@@ -12,7 +12,7 @@ namespace AppStore.Controllers
         // GET: UserController
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
         // GET: UserController
         public ActionResult Login()

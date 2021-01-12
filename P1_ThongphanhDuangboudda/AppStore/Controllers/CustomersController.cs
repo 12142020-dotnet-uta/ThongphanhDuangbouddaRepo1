@@ -30,7 +30,7 @@ namespace AppStore.Controllers
         public const string  CustomerId = "_Id";
         const string SessionKeyTime = "_Time";
         
-
+    
         public CustomersController(AppStoreContext context, CustomerBL cus, ProductBL product)
         {
             _context = context;
