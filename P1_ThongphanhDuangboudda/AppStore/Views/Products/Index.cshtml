@@ -29,14 +29,16 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-
+<!--
 <p>
     <a asp-action="Create">Create New</a>
-</p>
+</p
+ -->
+
 <form asp-controller="Stores" asp-action="Index" name="selectStore" asp-route-id="" method="post">
     <div class="form-group">
 
- 
+
         <label class="control-label">Select Store</label>
         <select onchange="myFunction()" class="form-control" asp-items="ViewBag.StoreId"></select>
     </div>
@@ -59,6 +61,8 @@
     </a>
 
 }
+
+<!--
 <table class="table">
     <thead>
         <tr>
@@ -117,3 +121,4 @@
     </tbody>
 </table>
 
+-->

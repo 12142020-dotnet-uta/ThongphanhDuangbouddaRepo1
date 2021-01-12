@@ -146,6 +146,9 @@ namespace AppStore.Controllers
                 {
                     //set session
                     _cusBL.SetSession(cus);
+                    //redirect to suggestion page
+                    var Id = HttpContext.Session.GetInt32(CustomerId);
+                    return RedirectToAction("SuggestionPage", "Products", new { id = (int)Id });
                   /*
                     // Requires: using Microsoft.AspNetCore.Http;
                     HttpContext.Session.SetString(SessionKeyName, cus.FirstName);

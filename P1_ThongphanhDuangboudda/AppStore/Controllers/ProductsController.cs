@@ -48,6 +48,13 @@ namespace AppStore.Controllers
             ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
             return View(_productBL.GetProductsSync(1));
         }
+        public IActionResult SuggestionPage(int? id)
+        {
+           int customerId = (int)id;
+            ViewData["StoreId"] = new SelectList(_context.Stores, "StoreId", "StoreId");
+
+            return View(_productBL.GetOrderSuggestions(customerId));
+        }
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id, int quantity, bool reEnter)

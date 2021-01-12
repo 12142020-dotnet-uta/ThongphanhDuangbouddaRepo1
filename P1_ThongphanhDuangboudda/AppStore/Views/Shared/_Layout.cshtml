@@ -32,11 +32,11 @@
                         </li>
 
                     </ul>
-                    </ul>
+                    
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item"><a class="nav-link text-dark" id="Login" asp-area="" asp-controller="Products" asp-action="Index"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                         <li class=" nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span> Log in </a></li>
-                        <li class=" nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="CartDetail"><span class="fa fa-shopping-cart"></span> Items:  @ViewData["Id"]</a></li>
+                        <li class=" nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="CartDetail"><span class="fa fa-shopping-cart"></span> Items:  <span id="items"></span></a></li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="LogOut"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                         <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="OrderHistories" asp-action="Index"><span class="glyphicon glyphicon-log-out"></span> History</a></li>
 

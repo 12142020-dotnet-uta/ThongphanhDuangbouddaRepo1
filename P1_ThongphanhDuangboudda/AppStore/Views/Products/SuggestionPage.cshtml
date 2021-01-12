@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ModelLayer.Models.Product>
+
+@{
+    ViewData["Title"] = "SuggestiionPage";
+}
+
+<h1>Suggested Products</h1>
+@{ 
+    int count = 0;
+}
+@foreach (var item in Model)
+{
+    count++;
+    <a class="productLink" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductID" style="margin-bottom: 13px; margin-left: 13px; width: 18%">
+        <div class="producColumn">
+
+            <img class="image" src="@item.ImageString" style="width: 80%;  height: 200px; padding-top: 5% " />
+            <p> Price: @item.Price</p>
+        </div>
+
+    </a>
+    if (count == 5) break;
+
+}
+<div style="text-align:center; background-color: lightblue; color: white; width: 95%; height: 40px; margin-left: 1.5%; padding: 10px;">
+    <a  asp-controller="Products" asp-action="Index">Enter Troll Store</a>
+</div>
+

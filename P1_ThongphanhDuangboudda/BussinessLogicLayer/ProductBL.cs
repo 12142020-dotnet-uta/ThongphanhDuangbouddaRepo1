@@ -160,7 +160,11 @@ namespace BussinessLogicLayer
        *F*/
         public List<Product> GetOrderSuggestions(int customerId)
         {
-            return _productRepo.GetOrderSuggestions(customerId);
+            List<Product> list = _productRepo.GetOrderSuggestions(customerId);
+
+            list = ConvertImageFile_SaveUrlSync(list);
+
+            return list;
         }
     }
 }
