@@ -1,44 +1,48 @@
 ﻿@model IEnumerable<ModelLayer.Models.Cart>
 
-    @{
+@{
     ViewData["Title"] = "CartDetail";
-    }
+    decimal total = 0;
+}
 
-    <h1>CartDetail</h1>
+<h1>CartDetail</h1>
 
-   
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Customer)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.store)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ProductDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model) {
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.store)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            total = total + item.Price;
+
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.CustomerId)
@@ -70,10 +74,15 @@
                     <a asp-action="Delete" asp-route-id="@item.CartId">Delete</a>
                 </td>
             </tr>
-}
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
-    <p>
-        <a asp-action="Checkout">Check Out</a>
-    </p>
+
+<p style="color: red; margin-left: 60%"> Your Total:    @total</p>
+    
+    
+
+<p>
+    <a asp-action="Checkout">Check Out</a>
+</p>
